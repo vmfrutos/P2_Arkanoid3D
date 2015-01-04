@@ -1,0 +1,42 @@
+EXEC := buscaminas3D.exe
+
+DIRSRC := ./src/
+DIROBJ := ./obj/
+DIRHEA := ./include/
+DIROGRE := D:/Sofware/OgreSDK_v1-8-1/
+DIRCEGUI := D:/Sofware/CEGUI-0.7.9/
+DIRBOOST := $(DIROGRE)boost
+
+CXX := g++
+
+CXXFLAGS := -I $(DIRHEA) -Wall -std=c++11 -DWIN32 -D_WINDOWS -mthreads
+CXXFLAGS += -I $(DIROGRE)include/ -I $(DIROGRE)include/OGRE/ 
+CXXFLAGS += -I $(DIROGRE)include/OIS/ -I $(DIRBOOST)/
+CXXFLAGS += -I $(DIRCEGUI)cegui/include/
+
+LDFLAGS := -L $(DIROGRE)bin/Release -L $(DIRCEGUI)/bin -L $(DIRBOOST)/lib
+LDFLAGS += -mthreads -lOgreMain -lOIS -lstdc++ -lCEGUIBase -lCEGUIOgreRenderer -lboost_system-mgw47-mt-1_51
+
+
+OBJS := $(subst $(DIRSRC), $(DIROBJ), $(patsubst %.cpp, %.o,$(wildcard $(DIRSRC)*.cpp)))
+
+ifeq ($(mode), release) 
+	CXXFLAGS := $(CXXFLAGS) -O2
+else
+	CXXFLAGS := $(CXXFLAGS) -ggdb
+endif
+
+
+
+
+
+all:	$(EXEC)
+
+$(EXEC):	$(OBJS)
+	$(CXX) -o $@ $^ $(LDLIBS) $(LDFLAGS)
+
+$(DIROBJ)%.o:	$(DIRSRC)%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+	
+clean:
+	$(RM) $(DIROBJ)* ./$(EXEC)
