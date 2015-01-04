@@ -1,4 +1,4 @@
-EXEC := buscaminas3D
+EXEC := Arkanoid3D
 
 DIRSRC := ./src/
 DIROBJ := ./obj/
