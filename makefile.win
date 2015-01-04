@@ -1,20 +1,22 @@
-EXEC := buscaminas3D.exe
+EXEC := Arkanoid3D.exe
 
 DIRSRC := ./src/
 DIROBJ := ./obj/
 DIRHEA := ./include/
-DIROGRE := D:/Sofware/OgreSDK_v1-8-1/
-DIRCEGUI := D:/Sofware/CEGUI-0.7.9/
+DIROGRE := ./dependencias/windows/ogre-1.8.1/
+DIRCEGUI := ./dependencias/windows/cegui-0.7.9/
 DIRBOOST := $(DIROGRE)boost
 
 CXX := g++
 
 CXXFLAGS := -I $(DIRHEA) -Wall -std=c++11 -DWIN32 -D_WINDOWS -mthreads
-CXXFLAGS += -I $(DIROGRE)include/ -I $(DIROGRE)include/OGRE/ 
-CXXFLAGS += -I $(DIROGRE)include/OIS/ -I $(DIRBOOST)/
-CXXFLAGS += -I $(DIRCEGUI)cegui/include/
+CXXFLAGS += -I $(DIROGRE)include/OGRE/
+CXXFLAGS += -I $(DIROGRE)include/
+CXXFLAGS += -I $(DIROGRE)include/OIS/ 
+CXXFLAGS += -I $(DIRBOOST)/
+CXXFLAGS += -I $(DIRCEGUI)include/
 
-LDFLAGS := -L $(DIROGRE)bin/Release -L $(DIRCEGUI)/bin -L $(DIRBOOST)/lib
+LDFLAGS := -L $(DIROGRE)lib -L $(DIRCEGUI)lib -L $(DIRBOOST)/lib
 LDFLAGS += -mthreads -lOgreMain -lOIS -lstdc++ -lCEGUIBase -lCEGUIOgreRenderer -lboost_system-mgw47-mt-1_51
 
 
