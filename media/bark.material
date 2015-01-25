@@ -1,0 +1,42 @@
+// bark genrated by blender2ogre 0.6.0
+
+material bark 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass bark
+        {
+            ambient 0.12596376240253448 0.11919042468070984 0.09822889417409897 1.0
+            diffuse 0.10077101142363265 0.09535234116542846 0.07858311651025884 1.0
+            specular 0.0 0.0 0.0 1.0 2.75
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+            texture_unit 
+            {
+                texture bark02.jpg
+                tex_address_mode wrap
+                scale 0.5 0.5
+                colour_op modulate
+            }
+        }
+    }
+}

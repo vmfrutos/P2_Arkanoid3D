@@ -29,7 +29,11 @@
 class IntroState : public Ogre::Singleton<IntroState>, public GameState
 {
  public:
-  IntroState() {}
+  IntroState():_numArboles(550),_numArbolesSecos(550){
+
+
+	  srand (time(NULL));
+  }
 
   void enter ();
   void exit ();
@@ -52,11 +56,24 @@ class IntroState : public Ogre::Singleton<IntroState>, public GameState
 
  protected:
   Ogre::Root* _root;
+  Ogre::RenderWindow* _win;
   Ogre::SceneManager* _sceneMgr;
   Ogre::Viewport* _viewport;
   Ogre::Camera* _camera;
+  Ogre::AnimationState *_animSuelo;
+  Ogre::AnimationState *_animMuro;
+  Ogre::AnimationState *_animLetras;
+
+  Ogre::SceneNode* _nodeCamara;
+  Ogre::SceneNode* _nodeFoco;
 
   bool _exitGame;
+
+  unsigned int _numArboles;
+  unsigned int _numArbolesSecos;
+
+ private:
+ void  createScene();
 };
 
 #endif
