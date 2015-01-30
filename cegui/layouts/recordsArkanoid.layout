@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4" >
+    <Window Type="DefaultWindow" Name="Records" >
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        
+        <!--Fila 1 -->
+        <Window Type="TaharezLook/StaticText" Name="Records/Nombre1" >
+            <Property Name="UnifiedAreaRect" Value="{{0.10,0},{0.25,0},{0.30,0},{0.30,0}}" />
+            <Property Name="Text" Value="Nombre del player" />
+            <Property Name="BackgroundEnabled" Value="False" /> 
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="TextColours" Value="FFFFFF00" />
+            <Property Name="Font" Value="DejaVuSans-15" />
+        </Window>
+       
+        <Window Type="TaharezLook/StaticText" Name="Records/Nivel1" >
+            <Property Name="UnifiedAreaRect" Value="{{0.50,0},{0.25,0},{0.60,0},{0.30,0}}" />
+            <Property Name="BackgroundEnabled" Value="False" /> 
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="TextColours" Value="FFFFFF00" />
+            <Property Name="Font" Value="DejaVuSans-15" />
+        </Window>
+        
+         <Window Type="TaharezLook/StaticText" Name="Records/Tiempo1" >
+            <Property Name="UnifiedAreaRect" Value="{{0.80,0},{0.25,0},{0.95,0},{0.30,0}}" />
+            <Property Name="BackgroundEnabled" Value="False" /> 
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="TextColours" Value="FFFFFF00" />
+            <Property Name="Font" Value="DejaVuSans-15" />      
+        </Window>
+        
+        
+        <!--Fila 2 -->
+        <Window Type="TaharezLook/StaticText" Name="Records/Nombre2" >
+            <Property Name="UnifiedAreaRect" Value="{{0.10,0},{0.35,0},{0.30,0},{0.40,0}}" />
+            <Property Name="BackgroundEnabled" Value="False" /> 
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="TextColours" Value="FFFFFF00" />
+            <Property Name="Font" Value="DejaVuSans-15" />   
+        </Window>
+       
+        <Window Type="TaharezLook/StaticText" Name="Records/Nivel2" >
+            <Property Name="UnifiedAreaRect" Value="{{0.50,0},{0.35,0},{0.60,0},{0.40,0}}" />
+            <Property Name="BackgroundEnabled" Value="False" /> 
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="TextColours" Value="FFFFFF00" />
+            <Property Name="Font" Value="DejaVuSans-15" />       
+
+        </Window>
+        
+         <Window Type="TaharezLook/StaticText" Name="Records/Tiempo2" >
+            <Property Name="UnifiedAreaRect" Value="{{0.80,0},{0.35,0},{0.95,0},{0.40,0}}" />
+            <Property Name="BackgroundEnabled" Value="False" /> 
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="TextColours" Value="FFFFFF00" />
+            <Property Name="Font" Value="DejaVuSans-15" />
+
+        </Window>
+        
+        <!--Fila 3 -->
+        <Window Type="TaharezLook/StaticText" Name="Records/Nombre3" >
+            <Property Name="UnifiedAreaRect" Value="{{0.10,0},{0.45,0},{0.30,0},{0.50,0}}" />
+            <Property Name="BackgroundEnabled" Value="False" /> 
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="TextColours" Value="FFFFFF00" /> 
+            <Property Name="Font" Value="DejaVuSans-15" />          
+
+        </Window>
+       
+        <Window Type="TaharezLook/StaticText" Name="Records/Nivel3" >
+            <Property Name="UnifiedAreaRect" Value="{{0.50,0},{0.45,0},{0.60,0},{0.50,0}}" />
+            <Property Name="BackgroundEnabled" Value="False" /> 
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="TextColours" Value="FFFFFF00" />  
+            <Property Name="Font" Value="DejaVuSans-15" />         
+
+        </Window>
+        
+         <Window Type="TaharezLook/StaticText" Name="Records/Tiempo3" >
+            <Property Name="UnifiedAreaRect" Value="{{0.80,0},{0.45,0},{0.95,0},{0.50,0}}" />
+            <Property Name="BackgroundEnabled" Value="False" /> 
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="TextColours" Value="FFFFFF00" />     
+            <Property Name="Font" Value="DejaVuSans-15" />      
+
+        </Window>
+        
+        <!--Fila 4 -->
+        <Window Type="TaharezLook/StaticText" Name="Records/Nombre4" >
+            <Property Name="UnifiedAreaRect" Value="{{0.10,0},{0.55,0},{0.30,0},{0.60,0}}" />
+            <Property Name="BackgroundEnabled" Value="False" /> 
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="TextColours" Value="FFFFFF00" />  
+            <Property Name="Font" Value="DejaVuSans-15" />         
+
+        </Window>
+       
+        <Window Type="TaharezLook/StaticText" Name="Records/Nivel4" >
+            <Property Name="UnifiedAreaRect" Value="{{0.50,0},{0.55,0},{0.60,0},{0.60,0}}" />
+            <Property Name="BackgroundEnabled" Value="False" /> 
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="TextColours" Value="FFFFFF00" /> 
+            <Property Name="Font" Value="DejaVuSans-15" />          
+
+        </Window>
+        
+         <Window Type="TaharezLook/StaticText" Name="Records/Tiempo4" >
+            <Property Name="UnifiedAreaRect" Value="{{0.80,0},{0.55,0},{0.95,0},{0.60,0}}" />
+            <Property Name="BackgroundEnabled" Value="False" /> 
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="TextColours" Value="FFFFFF00" />
+            <Property Name="Font" Value="DejaVuSans-15" />           
+
+        </Window>
+        
+        <!--Fila 5 -->
+        <Window Type="TaharezLook/StaticText" Name="Records/Nombre5" >
+            <Property Name="UnifiedAreaRect" Value="{{0.10,0},{0.65,0},{0.30,0},{0.70,0}}" />
+            <Property Name="BackgroundEnabled" Value="False" /> 
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="TextColours" Value="FFFFFF00" /> 
+            <Property Name="Font" Value="DejaVuSans-15" />          
+
+        </Window>
+       
+        <Window Type="TaharezLook/StaticText" Name="Records/Nivel5" >
+            <Property Name="UnifiedAreaRect" Value="{{0.50,0},{0.65,0},{0.60,0},{0.70,0}}" />
+            <Property Name="BackgroundEnabled" Value="False" /> 
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="TextColours" Value="FFFFFF00" /> 
+            <Property Name="Font" Value="DejaVuSans-15" />          
+
+        </Window>
+        
+         <Window Type="TaharezLook/StaticText" Name="Records/Tiempo5" >
+            <Property Name="UnifiedAreaRect" Value="{{0.80,0},{0.65,0},{0.95,0},{0.70,0}}" />
+            <Property Name="BackgroundEnabled" Value="False" /> 
+            <Property Name="FrameEnabled" Value="False" />
+            <Property Name="TextColours" Value="FFFFFF00" />           
+			<Property Name="Font" Value="DejaVuSans-15" />
+
+        </Window>
+        
+        <Window Type="TaharezLook/Button" Name="Records/Volver" >
+            <Property Name="UnifiedAreaRect" Value="{{0.40,0},{0.80,0},{0.60,0},{0.85,0}}" />
+            <Property Name="Text" Value="Volver" />
+            <Property Name="Alpha" Value="0.3" />
+    	</Window>
+        
+        
+        
+    </Window>
+</GUILayout>

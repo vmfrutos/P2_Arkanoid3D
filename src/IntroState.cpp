@@ -1,21 +1,41 @@
 #include "IntroState.h"
-#include "PlayState.h"
+
 
 template<> IntroState* Ogre::Singleton<IntroState>::msSingleton = 0;
 
 using namespace std;
+
+IntroState::IntroState() {
+	_root = NULL;
+	_win = NULL;
+	_sceneMgr = NULL;
+	_viewport = NULL;
+	_camera = NULL;
+	_nodeCamara = NULL;
+	_nodeFoco = NULL;
+	_exitState = false;
+	_numArboles = 550;
+	_numArbolesSecos = 550;
+	_sheet = NULL;
+	_menu = NULL;
+	srand (time(NULL));
+}
+
+IntroState::~IntroState()
+{
+}
 
 void
 IntroState::enter ()
 {
   _root = Ogre::Root::getSingletonPtr();
   _win = _root->getAutoCreatedWindow();
-  _sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "SceneManager");
+  _sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "SceneManagerMenu");
+
   // Se define una camara
   _camera = _sceneMgr->createCamera("MenuCamera");
   _camera->setPosition(Ogre::Vector3(0.0,2.5,8.5));
   _camera->lookAt(Ogre::Vector3(0,1,0));
-
   _camera->setFOVy (Ogre::Degree(50));
   _camera->setNearClipDistance(1);
   _camera->setFarClipDistance(100);
@@ -23,16 +43,45 @@ IntroState::enter ()
   _viewport = _win->addViewport(_camera);
   _viewport->setBackgroundColour(Ogre::ColourValue(0.016, 0.454, 0.467));
 
+  // Se inicializa el layout de CEGUI
+  //Sheet
+  _sheet = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow","Sheet");
+
+    //Config Window
+  _menu = CEGUI::WindowManager::getSingleton().loadWindowLayout("menuArkanoid.layout");
+
+  _menu->getChild("Menu/Jugar")->subscribeEvent(CEGUI::PushButton::EventMouseEntersArea,CEGUI::Event::Subscriber(&IntroState::mouseInButton,this));
+  _menu->getChild("Menu/Records")->subscribeEvent(CEGUI::PushButton::EventMouseEntersArea,CEGUI::Event::Subscriber(&IntroState::mouseInButton,this));
+  _menu->getChild("Menu/Creditos")->subscribeEvent(CEGUI::PushButton::EventMouseEntersArea,CEGUI::Event::Subscriber(&IntroState::mouseInButton,this));
+  _menu->getChild("Menu/Salir")->subscribeEvent(CEGUI::PushButton::EventMouseEntersArea,CEGUI::Event::Subscriber(&IntroState::mouseInButton,this));
+
+
+  _menu->getChild("Menu/Jugar")->subscribeEvent(CEGUI::PushButton::EventMouseLeavesArea,CEGUI::Event::Subscriber(&IntroState::mouseOutButton,this));
+  _menu->getChild("Menu/Records")->subscribeEvent(CEGUI::PushButton::EventMouseLeavesArea,CEGUI::Event::Subscriber(&IntroState::mouseOutButton,this));
+  _menu->getChild("Menu/Creditos")->subscribeEvent(CEGUI::PushButton::EventMouseLeavesArea,CEGUI::Event::Subscriber(&IntroState::mouseOutButton,this));
+  _menu->getChild("Menu/Salir")->subscribeEvent(CEGUI::PushButton::EventMouseLeavesArea,CEGUI::Event::Subscriber(&IntroState::mouseOutButton,this));
+
+  _menu->getChild("Menu/Jugar")->subscribeEvent(CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&IntroState::clickButton,this));
+  _menu->getChild("Menu/Records")->subscribeEvent(CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&IntroState::clickButton,this));
+  _menu->getChild("Menu/Creditos")->subscribeEvent(CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&IntroState::clickButton,this));
+  _menu->getChild("Menu/Salir")->subscribeEvent(CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&IntroState::clickButton,this));
+
+
+  _sheet->addChildWindow(_menu);
+
+  CEGUI::System::getSingleton().setGUISheet(_sheet);
   // Se cre la escena
   createScene();
-  _exitGame = false;
+  _exitState = false;
 }
 
 void
 IntroState::exit()
-{
-  _sceneMgr->clearScene();
-  _root->getAutoCreatedWindow()->removeAllViewports();
+{	_menu->destroy();
+	_sheet->destroy();
+	_sceneMgr->clearScene();
+	_root->destroySceneManager(_sceneMgr);
+	_root->getAutoCreatedWindow()->removeAllViewports();
 }
 
 void
@@ -55,12 +104,11 @@ IntroState::frameStarted
 	Ogre::Real velocidad = 5;
 
 
-	// Se hace rotar la camara
+	// Se hace rotar la camara y el foco
 	Ogre::Quaternion incremento(Ogre::Degree(grados * deltaT * velocidad), Ogre::Vector3::UNIT_Y);
 	_nodeCamara->rotate(incremento,Ogre::Node::TS_WORLD);
 	_nodeFoco->rotate(incremento,Ogre::Node::TS_WORLD);
 
-	// Se hace rotar el foco
 
 	return true;
 }
@@ -69,8 +117,11 @@ bool
 IntroState::frameEnded
 (const Ogre::FrameEvent& evt)
 {
-  if (_exitGame)
-    return false;
+	// se se sale de este estado (intro) se sale del juego
+	if (_exitState) {
+		return false;
+	}
+
   
   return true;
 }
@@ -79,84 +130,41 @@ void
 IntroState::keyPressed
 (const OIS::KeyEvent &e)
 {
-  // Transición al siguiente estado.
-  // Espacio --> PlayState
-  if (e.key == OIS::KC_SPACE) {
-    changeState(PlayState::getSingletonPtr());
-  }
+	CEGUI::System::getSingleton().injectKeyDown(e.key);
+	CEGUI::System::getSingleton().injectChar(e.text);
 
-  /*
-
-  if (e.key == OIS::KC_Q) {
-    //changeState(PlayState::getSingletonPtr());
-	Ogre::Vector3 pos(luz->getDirection());
-	pos.x=pos.x+0.1;
-	luz->setDirection(pos);
-  }
-
-  if (e.key == OIS::KC_W) {
-    //changeState(PlayState::getSingletonPtr());
-	Ogre::Vector3 pos(luz->getDirection());
-	pos.y=pos.y+0.1;
-	luz->setDirection(pos);
-  }
-
-  if (e.key == OIS::KC_E) {
-    //changeState(PlayState::getSingletonPtr());
-	Ogre::Vector3 pos(luz->getDirection());
-	pos.z=pos.z+0.1;
-	luz->setDirection(pos);
-  }
-
-  if (e.key == OIS::KC_A) {
-    //changeState(PlayState::getSingletonPtr());
-	Ogre::Vector3 pos(luz->getDirection());
-	pos.x=pos.x-0.1;
-	luz->setDirection(pos);
-  }
-
-  if (e.key == OIS::KC_S) {
-    //changeState(PlayState::getSingletonPtr());
-	Ogre::Vector3 pos(luz->getDirection());
-	pos.y=pos.y-0.1;
-	luz->setDirection(pos);
-  }
-
-  if (e.key == OIS::KC_D) {
-    //changeState(PlayState::getSingletonPtr());
-	Ogre::Vector3 pos(luz->getDirection());
-	pos.z=pos.z-0.1;
-	luz->setDirection(pos);
-  }
-
-  */
 }
 
 void
 IntroState::keyReleased
 (const OIS::KeyEvent &e )
 {
-  if (e.key == OIS::KC_ESCAPE) {
-    _exitGame = true;
-  }
+	CEGUI::System::getSingleton().injectKeyUp(e.key);
+	if (e.key == OIS::KC_ESCAPE) {
+		_exitState = true;
+	}
+
 }
 
 void
 IntroState::mouseMoved
-(const OIS::MouseEvent &e)
+(const OIS::MouseEvent &evt)
 {
+	CEGUI::System::getSingleton().injectMouseMove(evt.state.X.rel, evt.state.Y.rel);
 }
 
 void
 IntroState::mousePressed
 (const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
+	CEGUI::System::getSingleton().injectMouseButtonDown(convertMouseButton(id));
 }
 
 void
 IntroState::mouseReleased
 (const OIS::MouseEvent &e, OIS::MouseButtonID id)
 {
+	CEGUI::System::getSingleton().injectMouseButtonUp(convertMouseButton(id));
 }
 
 IntroState*
@@ -316,3 +324,52 @@ IntroState::createScene() {
 
 
 }
+
+/**
+ * Metodo que se ejecuta cuando el raton se pone encima de un botón
+ */
+bool
+IntroState::mouseInButton(const CEGUI::EventArgs &e){
+
+	const CEGUI::MouseEventArgs& we = static_cast<const CEGUI::MouseEventArgs&>(e);
+	CEGUI::String senderID = we.window->getName();
+
+	_menu->getChild(senderID)->setAlpha(1.0);
+	return true;
+}
+
+/**
+ * Metodo que se ejecuta cuando el raton se quita de encima de un botón
+ */
+bool
+IntroState::mouseOutButton(const CEGUI::EventArgs &e){
+
+	const CEGUI::MouseEventArgs& we = static_cast<const CEGUI::MouseEventArgs&>(e);
+	CEGUI::String senderID = we.window->getName();
+
+	_menu->getChild(senderID)->setAlpha(0.3);
+	return true;
+}
+
+/**
+ * Metodo que se ejecuta cuando se pulsa un botom
+ * Se compruba cual es el botón pulsado y se realiza la accion correspondiente
+ */
+bool
+IntroState::clickButton(const CEGUI::EventArgs &e){
+
+	const CEGUI::MouseEventArgs& we = static_cast<const CEGUI::MouseEventArgs&>(e);
+	CEGUI::String senderID = we.window->getName();
+
+	if (senderID == "Menu/Jugar") {
+
+	} else if  (senderID == "Menu/Records") {
+		changeState(RecordState::getSingletonPtr());
+	} else if  (senderID == "Menu/Creditos") {
+
+	} else if  (senderID == "Menu/Salir") {
+		_exitState = true;
+	}
+	return true;
+}
+

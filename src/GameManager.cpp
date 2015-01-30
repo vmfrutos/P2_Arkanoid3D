@@ -2,6 +2,12 @@
 
 #include "GameManager.h"
 #include "GameState.h"
+#include <Ogre.h>
+#include <OgreSingleton.h>
+#include <RendererModules/Ogre/CEGUIOgreRenderer.h>
+#include <OIS/OIS.h>
+#include <CEGUI.h>
+
 
 template<> GameManager* Ogre::Singleton<GameManager>::msSingleton = 0;
 
@@ -39,6 +45,9 @@ GameManager::start
   // Registro como key y mouse listener...
   _inputMgr->addKeyListener(this, "GameManager");
   _inputMgr->addMouseListener(this, "GameManager");
+
+  // Se inicializa la librería CEGUI
+  initializeCEGUI();
 
   // El GameManager es un FrameListener.
   _root->addFrameListener(this);
@@ -200,4 +209,20 @@ GameManager::mouseReleased
 {
   _states.top()->mouseReleased(e, id);
   return true;
+}
+
+void
+GameManager::initializeCEGUI()
+{
+	  //CEGUI
+	  CEGUI::OgreRenderer::bootstrapSystem();
+	  CEGUI::Scheme::setDefaultResourceGroup("Schemes");
+	  CEGUI::Imageset::setDefaultResourceGroup("Imagesets");
+	  CEGUI::Font::setDefaultResourceGroup("Fonts");
+	  CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
+	  CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
+
+	  CEGUI::SchemeManager::getSingleton().create("TaharezLook.scheme");
+	  CEGUI::System::getSingleton().setDefaultFont("DejaVuSans-10");
+	  CEGUI::System::getSingleton().setDefaultMouseCursor("TaharezLook","MouseArrow");
 }

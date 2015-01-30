@@ -24,6 +24,8 @@
 #include "IntroState.h"
 #include "PlayState.h"
 #include "PauseState.h"
+#include "RecordsState.h"
+#include "RecordsManager.h"
 
 #include <iostream>
 
@@ -31,14 +33,21 @@ using namespace std;
 
 int main () {
 
+
   GameManager* game = new GameManager();
   IntroState* introState = new IntroState();
   PlayState* playState = new PlayState();
   PauseState* pauseState = new PauseState();
+  RecordState* recordState = new RecordState();
+  RecordsManager* recordsManager = new RecordsManager();
+
+
 
   UNUSED_VARIABLE(introState);
   UNUSED_VARIABLE(playState);
   UNUSED_VARIABLE(pauseState);
+  UNUSED_VARIABLE(recordState);
+  UNUSED_VARIABLE(recordsManager);
     
   try
     {
@@ -49,8 +58,14 @@ int main () {
     {
       std::cerr << "Excepción detectada: " << e.getFullDescription();
     }
-  
+
+  delete recordsManager;
+  delete recordState;
+  //delete pauseState;
+  //delete playState;
+  //delete introState;
   delete game;
-  
+
+
   return 0;
 }
