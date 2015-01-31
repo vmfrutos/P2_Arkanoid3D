@@ -1,5 +1,5 @@
-fffffffffff;0;667
-ddddddddddd;0;653
-eeeeeeeeeee;0;432
-ccccccccccc;0;234
-aaaaaaaaaaa;0;123
+fffffffffff;1;667
+ddddddddddd;2;653
+eeeeeeeeeee;2;432
+ccccccccccc;1;234
+aaaaaaaaaaa;3;123
