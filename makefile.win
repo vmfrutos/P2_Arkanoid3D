@@ -1,4 +1,4 @@
-EXEC := Arkanoid3D.exe
+EXEC := ./release/windows/Arkanoid3D.exe
 
 DIRSRC := ./src/
 DIROBJ := ./obj/
