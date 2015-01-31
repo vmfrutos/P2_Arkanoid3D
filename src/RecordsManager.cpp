@@ -53,7 +53,7 @@ void RecordsManager::loadFromFile(){
 
 			Record record;
 			record.setNombre(nombre);
-			record.setNivel(std::stoi(nivel));
+			record.setNivel(std::atoi(nivel.c_str()));
 			record.setSegundosTranscurridos(Ogre::StringConverter::parseReal(tiempo));
 			insertarRecord(record);
 		}
