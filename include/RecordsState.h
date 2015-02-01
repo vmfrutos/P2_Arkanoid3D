@@ -82,6 +82,9 @@ class RecordState : public Ogre::Singleton<RecordState>, public GameState
  bool mouseInButton(const CEGUI::EventArgs &e);
  bool mouseOutButton(const CEGUI::EventArgs &e);
  bool clickButton(const CEGUI::EventArgs &e);
+
+ // Sonido
+ TrackPtr _audioRecords;
 };
 
 #endif

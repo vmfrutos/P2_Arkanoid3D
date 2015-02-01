@@ -5,8 +5,13 @@
 #include <Ogre.h>
 #include <OgreSingleton.h>
 #include <OIS/OIS.h>
-
+#include <SDL/SDL_mixer.h>
+#include <SDL/SDL.h>
 #include "InputManager.h"
+#include "SoundFXManager.h"
+#include "TrackManager.h"
+
+using namespace std;
 
 class GameState;
 
@@ -23,6 +28,8 @@ class GameManager : public Ogre::FrameListener, public Ogre::Singleton<GameManag
   void changeState (GameState* state);
   void pushState (GameState* state);
   void popState ();
+  static TrackManager* getTrackManager();
+  static SoundFXManager* getSoundFXManager();
   
   // Heredados de Ogre::Singleton.
   static GameManager& getSingleton ();
@@ -30,7 +37,7 @@ class GameManager : public Ogre::FrameListener, public Ogre::Singleton<GameManag
 
  protected:
   Ogre::Root* _root;
-  Ogre::SceneManager* _sceneManager;
+  //Ogre::SceneManager* _sceneManager;
   Ogre::RenderWindow* _renderWindow;
 
   // Funciones de configuración.
@@ -51,11 +58,16 @@ class GameManager : public Ogre::FrameListener, public Ogre::Singleton<GameManag
   bool mousePressed (const OIS::MouseEvent &e, OIS::MouseButtonID id);
   bool mouseReleased (const OIS::MouseEvent &e, OIS::MouseButtonID id);
   void initializeCEGUI();
+  bool initSDL() ;
   
   // Gestor de eventos de entrada.
   InputManager *_inputMgr;
   // Estados del juego.
   std::stack<GameState*> _states;
+
+  // Sonido
+  static TrackManager*  _pTrackManager;
+  static SoundFXManager*  _pSoundFXManager;
 
 };
 

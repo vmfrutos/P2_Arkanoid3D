@@ -11,20 +11,30 @@
 
 template<> GameManager* Ogre::Singleton<GameManager>::msSingleton = 0;
 
+TrackManager*  GameManager::_pTrackManager = NULL;
+SoundFXManager*  GameManager::_pSoundFXManager = NULL;
+
+
 GameManager::GameManager ()
 {
-  _root = 0;
+  _root = NULL;
+  _renderWindow = NULL;
+  _inputMgr = NULL;
 }
 
 GameManager::~GameManager ()
 {
-  while (!_states.empty()) {
-    _states.top()->exit();
-    _states.pop();
-  }
+	cout << "~GameManager" << endl;
+	if (GameManager::_pTrackManager) delete GameManager::_pTrackManager;
+	if (GameManager::_pSoundFXManager) delete GameManager::_pSoundFXManager;
+
+	while (!_states.empty()) {
+		_states.top()->exit();
+		_states.pop();
+	}
   
-  if (_root)
-    delete _root;
+	if (_root)
+		delete _root;
 }
 
 void
@@ -48,6 +58,9 @@ GameManager::start
 
   // Se inicializa la librería CEGUI
   initializeCEGUI();
+
+  // Se inicializa la librería SDL
+  initSDL();
 
   // El GameManager es un FrameListener.
   _root->addFrameListener(this);
@@ -225,4 +238,37 @@ GameManager::initializeCEGUI()
 	  CEGUI::SchemeManager::getSingleton().create("TaharezLook.scheme");
 	  CEGUI::System::getSingleton().setDefaultFont("DejaVuSans-10");
 	  CEGUI::System::getSingleton().setDefaultMouseCursor("TaharezLook","MouseArrow");
+}
+
+bool
+GameManager::initSDL() {
+    // Inicializando SDL...
+    if (SDL_Init(SDL_INIT_AUDIO) < 0)
+        return false;
+    // Llamar a  SDL_Quit al terminar.
+    atexit(SDL_Quit);
+
+    // Inicializando SDL mixer...
+    if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT,MIX_DEFAULT_CHANNELS, 4096) < 0)
+      return false;
+
+    // Llamar a Mix_CloseAudio al terminar.
+    atexit(Mix_CloseAudio);
+
+    // Se inicializan los gestores de sonido (track y FX)
+    GameManager::_pTrackManager = new TrackManager;
+    GameManager::_pSoundFXManager = new SoundFXManager;
+
+    return true;
+}
+
+TrackManager*
+GameManager::getTrackManager() {
+	assert(GameManager::_pTrackManager);
+	return GameManager::_pTrackManager;
+}
+SoundFXManager*
+GameManager::getSoundFXManager(){
+	assert(GameManager::_pSoundFXManager);
+	return GameManager::_pSoundFXManager;
 }

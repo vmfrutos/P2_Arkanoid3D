@@ -21,7 +21,7 @@ RecordState::RecordState() {
 }
 
 RecordState::~RecordState() {
-
+	cout << "~RecordState" << endl;
 }
 
 void
@@ -82,11 +82,18 @@ RecordState::enter ()
   // Se cre la escena
   createScene();
   _exitState = false;
+
+  // Se establece el Track de sonido
+  _audioRecords = GameManager::getTrackManager()->load("forest-ruins.wav");
+
+  // Se pone en modo loop
+  _audioRecords->play(true);
 }
 
 void
 RecordState::exit()
 {
+	_audioRecords->stop();
 	_menu->destroy();
 	_sheet->destroy();
 	_sceneMgr->clearScene();

@@ -39,6 +39,7 @@ int main () {
   PlayState* playState = new PlayState();
   PauseState* pauseState = new PauseState();
   RecordState* recordState = new RecordState();
+  CreditsState* creditsState = new CreditsState();
   RecordsManager* recordsManager = new RecordsManager();
 
 
@@ -47,6 +48,7 @@ int main () {
   UNUSED_VARIABLE(playState);
   UNUSED_VARIABLE(pauseState);
   UNUSED_VARIABLE(recordState);
+  UNUSED_VARIABLE(creditsState);
   UNUSED_VARIABLE(recordsManager);
     
   try
@@ -59,12 +61,18 @@ int main () {
       std::cerr << "Excepción detectada: " << e.getFullDescription();
     }
 
+  cout << "MAIN_01" << endl;
   delete recordsManager;
+  cout << "MAIN_02" << endl;
   delete recordState;
+  cout << "MAIN_03" << endl;
+  delete creditsState;
+  cout << "MAIN_04" << endl;
   //delete pauseState;
   //delete playState;
   //delete introState;
   delete game;
+  cout << "MAIN_05" << endl;
 
 
   return 0;

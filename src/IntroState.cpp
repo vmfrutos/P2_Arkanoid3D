@@ -23,6 +23,7 @@ IntroState::IntroState() {
 
 IntroState::~IntroState()
 {
+	cout << "~IntroState" << endl;
 }
 
 void
@@ -73,11 +74,21 @@ IntroState::enter ()
   // Se cre la escena
   createScene();
   _exitState = false;
+
+  // Se establece el Track de sonido
+  _audioIntro = GameManager::getTrackManager()->load("snowfall-final.mp3");
+
+  // Se pone en modo loop
+  _audioIntro->play(true);
+
 }
 
 void
 IntroState::exit()
-{	_menu->destroy();
+{
+
+	_audioIntro->stop();
+	_menu->destroy();
 	_sheet->destroy();
 	_sceneMgr->clearScene();
 	_root->destroySceneManager(_sceneMgr);
@@ -366,7 +377,7 @@ IntroState::clickButton(const CEGUI::EventArgs &e){
 	} else if  (senderID == "Menu/Records") {
 		changeState(RecordState::getSingletonPtr());
 	} else if  (senderID == "Menu/Creditos") {
-
+		changeState(CreditsState::getSingletonPtr());
 	} else if  (senderID == "Menu/Salir") {
 		_exitState = true;
 	}

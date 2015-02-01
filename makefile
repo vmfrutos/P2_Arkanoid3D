@@ -5,7 +5,7 @@ DIROBJ := ./obj/
 DIRHEA := ./include/
 CXXFLAGS := -I $(DIRHEA) -Wall `pkg-config --cflags CEGUI` -std=c++11 `pkg-config --cflags OGRE` `pkg-config --cflags OIS`
 LDFLAGS := `pkg-config --libs-only-L OGRE`
-LDLIBS := `pkg-config --libs CEGUI` `pkg-config --libs CEGUI-OGRE` `pkg-config --libs-only-l OGRE` -lOIS -lGL -lstdc++ -lboost_system
+LDLIBS := `pkg-config --libs CEGUI` `pkg-config --libs CEGUI-OGRE` `pkg-config --libs-only-l OGRE` -lOIS -lGL -lstdc++ -lboost_system -lSDL -lSDL_mixer
 CXX := g++
 OBJS := $(subst $(DIRSRC), $(DIROBJ), $(patsubst %.cpp, %.o,$(wildcard $(DIRSRC)*.cpp)))
 
