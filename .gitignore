@@ -26,3 +26,7 @@
 *.exe
 *.out
 *.app
+/Arkanoid3D
+/CEGUI.log
+/Ogre.log
+/ogre.cfg
