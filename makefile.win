@@ -6,6 +6,8 @@ DIRHEA := ./include/
 DIROGRE := ./dependencias/windows/ogre-1.8.1/
 DIRCEGUI := ./dependencias/windows/cegui-0.7.9/
 DIRBOOST := $(DIROGRE)boost
+DIRSDL := ./dependencias/windows/SDL-1.2.15/
+DIRSDLMIXER := ./dependencias/windows/SDL_mixer-1.2.12/
 
 CXX := g++
 
@@ -15,9 +17,15 @@ CXXFLAGS += -I $(DIROGRE)include/
 CXXFLAGS += -I $(DIROGRE)include/OIS/ 
 CXXFLAGS += -I $(DIRBOOST)/
 CXXFLAGS += -I $(DIRCEGUI)include/
+CXXFLAGS += -I $(DIRSDL)include/
+CXXFLAGS += -I $(DIRSDL)include/SDL/
+CXXFLAGS += -I $(DIRSDLMIXER)include/
+CXXFLAGS += -I $(DIRSDLMIXER)include/SDL/
 
-LDFLAGS := -L $(DIROGRE)lib -L $(DIRCEGUI)lib -L $(DIRBOOST)/lib
-LDFLAGS += -mthreads -lOgreMain -lOIS -lstdc++ -lCEGUIBase -lCEGUIOgreRenderer -lboost_system-mgw47-mt-1_51
+
+LDFLAGS := -L $(DIROGRE)lib -L $(DIRCEGUI)lib -L $(DIRBOOST)/lib -L $(DIRSDL)lib -L $(DIRSDLMIXER)lib
+LDFLAGS += -mthreads -lOgreMain -lOIS -lstdc++ -lCEGUIBase -lCEGUIOgreRenderer -lboost_system-mgw47-mt-1_51  -lmingw32 -lSDLmain -lSDL -mwindows -lSDL_mixer
+
 
 
 OBJS := $(subst $(DIRSRC), $(DIROBJ), $(patsubst %.cpp, %.o,$(wildcard $(DIRSRC)*.cpp)))

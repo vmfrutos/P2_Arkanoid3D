@@ -1,23 +1,3 @@
-/*********************************************************************
- * Módulo 1. Curso de Experto en Desarrollo de Videojuegos
- * Autor: David Vallejo Fernández    David.Vallejo@uclm.es
- *
- * Código modificado a partir de Managing Game States with OGRE
- * http://www.ogre3d.org/tikiwiki/Managing+Game+States+with+OGRE
- * Inspirado en Managing Game States in C++
- * http://gamedevgeek.com/tutorials/managing-game-states-in-c/
- *
- * You can redistribute and/or modify this file under the terms of the
- * GNU General Public License ad published by the Free Software
- * Foundation, either version 3 of the License, or (at your option)
- * and later version. See <http://www.gnu.org/licenses/>.
- *
- * This file is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.  
- *********************************************************************/
-
 #define UNUSED_VARIABLE(x) (void)x
 
 #include "GameManager.h"
@@ -31,7 +11,7 @@
 
 using namespace std;
 
-int main () {
+int main (int argc, char**argv) {
 
 
   GameManager* game = new GameManager();
@@ -61,13 +41,9 @@ int main () {
       std::cerr << "Excepción detectada: " << e.getFullDescription();
     }
 
-  cout << "MAIN_01" << endl;
   delete recordsManager;
-  cout << "MAIN_02" << endl;
   delete recordState;
-  cout << "MAIN_03" << endl;
   delete creditsState;
-  cout << "MAIN_04" << endl;
   //delete pauseState;
   //delete playState;
   //delete introState;
