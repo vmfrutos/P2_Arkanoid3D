@@ -1,0 +1,23 @@
+// mat_cristal genrated by blender2ogre 0.6.0
+
+material mat_cristal 
+{
+    receive_shadows on 
+
+    technique
+    {
+
+        pass mat_cristal
+        {
+            ambient 0.30 0.80 0.75 0.12
+            diffuse 0.24 0.64 0.60 0.12
+            //specular 0.5 0.5 0.5 0.0 12.5
+            emissive 0.0 0.0 0.0 0.0
+            scene_blend alpha_blend
+            depth_write off
+				cull_hardware none
+            cull_software none 
+        }
+
+    }
+}

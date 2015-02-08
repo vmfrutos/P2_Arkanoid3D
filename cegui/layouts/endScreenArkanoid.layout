@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4">
+    <Window Type="DefaultWindow" Name="EndScreen" >
+		<Property Name="UnifiedAreaRect" Value="{{0.15,0},{0.2,0},{0.65,0},{0.8,0}}" />
+        
+		<Window Type="TaharezLook/StaticImage" Name="EndScreen/Fondo" >
+			<Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+			<Property Name="BackgroundEnabled" Value="False" /> 
+            <Property Name="FrameEnabled" Value="False" />
+            
+        	<Window Type="TaharezLook/StaticText" Name="EndScreen/Score" >
+            	<Property Name="UnifiedAreaRect" Value="{{0.30,0},{0.125,0},{0.50,0},{0.275,0}}" />
+            	<Property Name="BackgroundEnabled" Value="False" /> 
+            	<Property Name="FrameEnabled" Value="False" />
+            	<Property Name="TextColours" Value="FFFF0000" />
+            	<Property Name="Font" Value="DejaVuSans-15" />
+				<Property Name="Text" Value="Score:" />            	
+        	</Window>
+        	
+        	<Window Type="TaharezLook/StaticText" Name="EndScreen/ScoreText" >
+            	<Property Name="UnifiedAreaRect" Value="{{0.52,0},{0.125,0},{0.80,0},{0.275,0}}" />
+            	<Property Name="BackgroundEnabled" Value="False" /> 
+            	<Property Name="FrameEnabled" Value="False" />
+            	<Property Name="TextColours" Value="FFFF0000" />
+            	<Property Name="Font" Value="DejaVuSans-15" />        	
+        	</Window>
+        	
+        	<Window Type="TaharezLook/StaticText" Name="EndScreen/Level" >
+            	<Property Name="UnifiedAreaRect" Value="{{0.30,0},{0.325,0},{0.50,0},{0.375,0}}" />
+            	<Property Name="BackgroundEnabled" Value="False" /> 
+            	<Property Name="FrameEnabled" Value="False" />
+            	<Property Name="TextColours" Value="FFFF0000" />
+            	<Property Name="Font" Value="DejaVuSans-15" />
+				<Property Name="Text" Value="Level:" />            	
+        	</Window>
+        	
+        	<Window Type="TaharezLook/StaticText" Name="EndScreen/LevelText" >
+            	<Property Name="UnifiedAreaRect" Value="{{0.52,0},{0.325,0},{0.80,0},{0.375,0}}" />
+            	<Property Name="BackgroundEnabled" Value="False" /> 
+            	<Property Name="FrameEnabled" Value="False" />
+            	<Property Name="TextColours" Value="FFFF0000" />
+            	<Property Name="Font" Value="DejaVuSans-15" />            	
+        	</Window>
+        	
+        	<Window Type="TaharezLook/StaticText" Name="EndScreen/Time" >
+            	<Property Name="UnifiedAreaRect" Value="{{0.30,0},{0.475,0},{0.50,0},{0.525,0}}" />
+            	<Property Name="BackgroundEnabled" Value="False" /> 
+            	<Property Name="FrameEnabled" Value="False" />
+            	<Property Name="TextColours" Value="FFFF0000" />
+            	<Property Name="Font" Value="DejaVuSans-15" />
+				<Property Name="Text" Value="Time:" />            	
+        	</Window>
+        	
+        	<Window Type="TaharezLook/StaticText" Name="EndScreen/TimeText" >
+            	<Property Name="UnifiedAreaRect" Value="{{0.52,0},{0.475,0},{0.80,0},{0.525,0}}" />
+            	<Property Name="BackgroundEnabled" Value="False" /> 
+            	<Property Name="FrameEnabled" Value="False" />
+            	<Property Name="TextColours" Value="FFFF0000" />
+            	<Property Name="Font" Value="DejaVuSans-15" />         	
+        	</Window>
+        	
+        	<Window Type="TaharezLook/StaticText" Name="EndScreen/NickName" >
+            	<Property Name="UnifiedAreaRect" Value="{{0.30,0},{0.625,0},{0.80,0},{0.675,0}}" />
+            	<Property Name="BackgroundEnabled" Value="False" /> 
+            	<Property Name="FrameEnabled" Value="False" />
+            	<Property Name="TextColours" Value="FFFF0000" />
+            	<Property Name="Font" Value="DejaVuSans-15" />
+				<Property Name="Text" Value="Set your Nickname:" />            	
+        	</Window>
+        	
+        	
+        	<Window Type="TaharezLook/Editbox" Name="EndScreen/NickNameEdit" >
+				<Property Name="UnifiedAreaRect" Value="{{0.35,0},{0.725,0},{0.70,0},{0.800,0}}" />
+            	<Property Name="BackgroundEnabled" Value="False" /> 
+            	<Property Name="FrameEnabled" Value="False" />
+            	<Property Name="TextColours" Value="FFFF0000" />
+            	<Property Name="Font" Value="DejaVuSans-15" />
+				<Property Name="Text" Value="" />            
+			</Window>
+        	
+        	
+        	<Window Type="TaharezLook/Button" Name="EndScreen/Salir" >
+            	<Property Name="UnifiedAreaRect" Value="{{0.40,0},{0.900,0},{0.65,0},{0.950,0}}" />
+            	<Property Name="Text" Value="Finish" />
+    		</Window>
+		</Window>
+    </Window>
+</GUILayout>

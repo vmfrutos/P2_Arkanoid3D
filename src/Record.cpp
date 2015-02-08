@@ -59,7 +59,7 @@ bool Record::operator<(const Record& r) const{
 	//cout << "Se va a ordenar ";
 	if (this->getNivel() == r.getNivel()) {
 		//cout << "nivel igual " << endl;
-		return this->getSegundosTranscurridos() > r.getSegundosTranscurridos();
+		return this->getSegundosTranscurridos() < r.getSegundosTranscurridos();
 	} else {
 		//cout << "nivel igual " << endl;
 		return this->getNivel() >  r.getNivel();

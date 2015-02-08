@@ -6,11 +6,11 @@
 
 #include "GameState.h"
 #include "IntroState.h"
-#include "PauseState.h"
 #include "Ball.h"
 #include "Paddle.h"
 #include "Structure.h"
 #include "Ground.h"
+#include "Wall.h"
 
 
 class Ball;
@@ -54,10 +54,14 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
  private:
 
 	void createScene();
+	bool clickFinishButton(const CEGUI::EventArgs &e);
+	void gameOver();
+
 
 	// Variables para CEGUI
 	CEGUI::Window* _sheet;
-	CEGUI::Window* _menu;
+	CEGUI::Window* _hud;
+	CEGUI::Window* _endScreen;
 
 	CEGUI::Window* _timeWidget;
 	CEGUI::Window* _fpsWidget;
@@ -69,6 +73,7 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
 	Paddle* _pala;
 	Structure* _structura;
 	Ground* _suelo;
+	Wall* _muro;
 	int _state;
 
 

@@ -1,5 +1,10 @@
+vmfrutos;10;10.5697
+vmfrutos;10;10.6917
+vmfrutos;10;11.5486
+yomismo;10;16.5297
+Nonena;10;24.7794
 eeeeeeeeeee;3;432
-fffffffffff;2;667
-ddddddddddd;2;653
 aaaaaaaaaaa;2;123
+ddddddddddd;2;653
+fffffffffff;2;667
 ccccccccccc;1;234

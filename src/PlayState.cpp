@@ -14,7 +14,8 @@ PlayState::PlayState ()
 	_nodeCamara = NULL;
 
 	_sheet = NULL;
-	_menu = NULL;
+	_hud = NULL;
+	_endScreen = NULL;
 
 	_timeWidget = NULL;
 	_fpsWidget = NULL;
@@ -27,6 +28,8 @@ PlayState::PlayState ()
 	_pala = NULL;
 	_structura = NULL;
 	_suelo = NULL;
+	_muro = NULL;
+
 	_numVidas = 3;
 
 	_state = STATE_PLAYING;
@@ -40,6 +43,9 @@ PlayState::~PlayState ()
 void
 PlayState::enter ()
 {
+	_state = STATE_PLAYING;
+	_numVidas = 3;
+
 	_root = Ogre::Root::getSingletonPtr();
 	_win = _root->getAutoCreatedWindow();
 	_sceneMgr = _root->createSceneManager(Ogre::ST_GENERIC, "SceneManagerPlay");
@@ -61,7 +67,8 @@ PlayState::enter ()
 	_sheet = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow","Sheet");
 
 	//Config Window
-	_menu = CEGUI::WindowManager::getSingleton().loadWindowLayout("hudArkanoid.layout");
+	_endScreen = CEGUI::WindowManager::getSingleton().loadWindowLayout("endScreenArkanoid.layout");
+	_hud  = CEGUI::WindowManager::getSingleton().loadWindowLayout("hudArkanoid.layout");
 
 	// Se crean los ImageSet
 	CEGUI::ImagesetManager::getSingleton().createFromImageFile("ImageBackGroud", "fondoHud.png");
@@ -70,9 +77,11 @@ PlayState::enter ()
 	CEGUI::ImagesetManager::getSingleton().createFromImageFile("Imagelevel", "level.png");
 	CEGUI::ImagesetManager::getSingleton().createFromImageFile("ImageTime", "time.png");
 	CEGUI::ImagesetManager::getSingleton().createFromImageFile("ImageFps", "fps.png");
+	CEGUI::ImagesetManager::getSingleton().createFromImageFile("ImageEndScreen", "endScreen.png");
 
 
-	CEGUI::Window* fondoHud = _menu->getChild("Hud/Fondo");
+	// Se inilizan los widgets del Hud
+	CEGUI::Window* fondoHud = _hud->getChild("Hud/Fondo");
 	CEGUI::Window* vida1 = fondoHud->getChild("Fondo/Vida1");
 	CEGUI::Window* vida2 = fondoHud->getChild("Fondo/Vida2");
 	CEGUI::Window* vida3 = fondoHud->getChild("Fondo/Vida3");
@@ -90,12 +99,18 @@ PlayState::enter ()
 	timeBox->setProperty("Image", "set:ImageTime image:full_image");
 	fpsBox->setProperty("Image", "set:ImageFps image:full_image");
 
+
 	_timeWidget = timeBox->getChild("TimeBox/TimeText");
 	_fpsWidget = fpsBox->getChild("FpsBox/FpsText");
 
+	// Se inicializan los widgets dela ventana endScreen
+	CEGUI::Window* fondoEndScreen = _endScreen->getChild("EndScreen/Fondo");
+	fondoEndScreen->setProperty("Image", "set:ImageEndScreen image:full_image");
+	_endScreen->getChild("EndScreen/Fondo")->getChild("EndScreen/Salir")->subscribeEvent(CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PlayState::clickFinishButton,this));
 
 
-	_sheet->addChildWindow(_menu);
+	_sheet->addChildWindow(_hud);
+	_sheet->addChildWindow(_endScreen);
 	CEGUI::System::getSingleton().setGUISheet(_sheet);
 
 	_exitGame = false;
@@ -105,15 +120,34 @@ PlayState::enter ()
 	createScene();
 
 	CEGUI::MouseCursor::getSingleton().hide();
+	_endScreen->hide();
 
 }
 
 void
 PlayState::exit ()
 {
-	if (_bola) delete _bola;
 	CEGUI::MouseCursor::getSingleton().show();
-	if (_menu) _menu->destroy();
+	if (_bola) {
+		delete _bola;
+		_bola = NULL;
+	}
+	if (_pala) {
+		delete _pala;
+		_pala = NULL;
+	}
+	if (_structura)  {
+		delete _structura;
+		_structura = NULL;
+	}
+	if (_suelo) {
+		delete _suelo;
+		_suelo = NULL;
+	}
+
+
+	if (_hud) _hud->destroy();
+	if (_endScreen) _endScreen->destroy();
 	if (_sheet) _sheet->destroy();
 	if (_sceneMgr) _sceneMgr->clearScene();
 	if (_root) {
@@ -200,6 +234,9 @@ void
 PlayState::keyPressed
 (const OIS::KeyEvent &e)
 {
+	CEGUI::System::getSingleton().injectKeyDown(e.key);
+	CEGUI::System::getSingleton().injectChar(e.text);
+
   // Tecla p --> PauseState.
   if (e.key == OIS::KC_P) {
     if (_state == STATE_PAUSE) {
@@ -237,6 +274,8 @@ void
 PlayState::keyReleased
 (const OIS::KeyEvent &e)
 {
+	CEGUI::System::getSingleton().injectKeyUp(e.key);
+
   if (e.key == OIS::KC_ESCAPE) {
     _exitGame = true;
   }
@@ -257,20 +296,23 @@ PlayState::keyReleased
 
 void
 PlayState::mouseMoved
-(const OIS::MouseEvent &e)
+(const OIS::MouseEvent &evt)
 {
+	CEGUI::System::getSingleton().injectMouseMove(evt.state.X.rel, evt.state.Y.rel);
 }
 
 void
 PlayState::mousePressed
-(const OIS::MouseEvent &e, OIS::MouseButtonID id)
+(const OIS::MouseEvent &evt, OIS::MouseButtonID id)
 {
+	CEGUI::System::getSingleton().injectMouseButtonDown(convertMouseButton(id));
 }
 
 void
 PlayState::mouseReleased
-(const OIS::MouseEvent &e, OIS::MouseButtonID id)
+(const OIS::MouseEvent &evt, OIS::MouseButtonID id)
 {
+	CEGUI::System::getSingleton().injectMouseButtonUp(convertMouseButton(id));
 }
 
 PlayState*
@@ -327,6 +369,9 @@ PlayState::createScene() {
 	_bola->initSetUp();
 	_bola->setNodeParent(_pala->getSceneNode());
 
+	// Se inicializa el muro
+	_muro = new Wall(_sceneMgr);
+	_muro->loadLevel();
 
 }
 
@@ -334,30 +379,63 @@ void
 PlayState::quitarVida() {
 	_numVidas--;
 	if (_numVidas == 0) {
-
-		_menu->getChild("Hud/Fondo")->getChild("Fondo/Vida3")->hide();
-		// Fin de partida
-		_state = STATE_END;
-		_bola->hide();
-		_pala->hide();
+		gameOver();
 	} else {
 		reset();
 
 		if (_numVidas == 2)
-			_menu->getChild("Hud/Fondo")->getChild("Fondo/Vida1")->hide();
+			_hud->getChild("Hud/Fondo")->getChild("Fondo/Vida1")->hide();
 		else if (_numVidas == 1)
-			_menu->getChild("Hud/Fondo")->getChild("Fondo/Vida2")->hide();
+			_hud->getChild("Hud/Fondo")->getChild("Fondo/Vida2")->hide();
 	}
 }
 
 void
 PlayState::reset() {
-
-
 		_pala->setNodeParent(_suelo->getSceneNode());
 		_pala->initSetUp();
 
 		_bola->setNodeParent(_pala->getSceneNode());
 		_bola->initSetUp();
+}
+
+void
+PlayState::gameOver() {
+
+	_hud->getChild("Hud/Fondo")->getChild("Fondo/Vida3")->hide();
+	// Fin de partida
+	_state = STATE_END;
+	_bola->hide();
+	_pala->hide();
+
+	CEGUI::String score = _hud->getChild("Hud/Fondo")->getChild("Fondo/ScoreBox")->getChild("ScoreBox/ScoreText")->getText();
+	CEGUI::String level = _hud->getChild("Hud/Fondo")->getChild("Fondo/LevelBox")->getChild("LevelBox/LevelText")->getText();
+	CEGUI::String time = _reloj.getContadorStr();
+
+	_endScreen->getChild("EndScreen/Fondo")->getChild("EndScreen/ScoreText")->setText(score);
+	_endScreen->getChild("EndScreen/Fondo")->getChild("EndScreen/LevelText")->setText(level);
+	_endScreen->getChild("EndScreen/Fondo")->getChild("EndScreen/TimeText")->setText(time);
+
+	CEGUI::MouseCursor::getSingleton().show();
+	_endScreen->show();
+
+}
+
+bool
+PlayState::clickFinishButton(const CEGUI::EventArgs &e){
+
+	string level(_endScreen->getChild("EndScreen/Fondo")->getChild("EndScreen/LevelText")->getText().c_str());
+	string time(_endScreen->getChild("EndScreen/Fondo")->getChild("EndScreen/TimeText")->getText().c_str());
+	string nickName(_endScreen->getChild("EndScreen/Fondo")->getChild("EndScreen/NickNameEdit")->getText().c_str());
+
+	Record record;
+	record.setNombre(nickName);
+	record.setNivel(std::atoi(level.c_str()));
+	record.setSegundosTranscurridos(_reloj.getSegundosTranscurridos());
+	RecordsManager::getSingletonPtr()->insertarRecord(record);
+
+	changeState(IntroState::getSingletonPtr());
+
+	return true;
 }
 
