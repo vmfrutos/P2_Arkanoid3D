@@ -17,7 +17,7 @@ class IntroState : public Ogre::Singleton<IntroState>, public GameState
 {
 public:
 	IntroState();
-	~IntroState();
+	virtual ~IntroState();
 
 	void enter ();
 	void exit ();

@@ -88,11 +88,15 @@ IntroState::exit()
 {
 
 	_audioIntro->stop();
-	_menu->destroy();
-	_sheet->destroy();
-	_sceneMgr->clearScene();
-	_root->destroySceneManager(_sceneMgr);
-	_root->getAutoCreatedWindow()->removeAllViewports();
+	if (_menu) _menu->destroy();
+	if (_sheet) _sheet->destroy();
+	if (_sceneMgr) _sceneMgr->clearScene();
+	if (_root) {
+		if (_sceneMgr) {
+		_root->destroySceneManager(_sceneMgr);
+		}
+		_root->getAutoCreatedWindow()->removeAllViewports();
+	}
 }
 
 void
@@ -373,7 +377,7 @@ IntroState::clickButton(const CEGUI::EventArgs &e){
 	CEGUI::String senderID = we.window->getName();
 
 	if (senderID == "Menu/Jugar") {
-
+		changeState(PlayState::getSingletonPtr());
 	} else if  (senderID == "Menu/Records") {
 		changeState(RecordState::getSingletonPtr());
 	} else if  (senderID == "Menu/Creditos") {

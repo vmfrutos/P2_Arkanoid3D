@@ -29,7 +29,10 @@
 class PauseState : public Ogre::Singleton<PauseState>, public GameState
 {
  public:
-  PauseState() {}
+
+	PauseState();
+	~PauseState();
+
 
   void enter ();
   void exit ();

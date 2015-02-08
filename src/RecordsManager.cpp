@@ -9,6 +9,7 @@ RecordsManager::RecordsManager() {
 
 RecordsManager::~RecordsManager() {
 	saveToFile();
+	cout << "~RecordsManager" << endl;
 }
 
 RecordsManager* RecordsManager::getSingletonPtr (){

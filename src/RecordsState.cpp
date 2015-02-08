@@ -94,11 +94,15 @@ void
 RecordState::exit()
 {
 	_audioRecords->stop();
-	_menu->destroy();
-	_sheet->destroy();
-	_sceneMgr->clearScene();
-	_root->destroySceneManager(_sceneMgr);
-	_root->getAutoCreatedWindow()->removeAllViewports();
+	if (_menu) _menu->destroy();
+	if (_sheet) _sheet->destroy();
+	if (_sceneMgr) _sceneMgr->clearScene();
+	if (_root) {
+		if (_sceneMgr) {
+		_root->destroySceneManager(_sceneMgr);
+		}
+		_root->getAutoCreatedWindow()->removeAllViewports();
+	}
 }
 
 void

@@ -2,6 +2,20 @@
 
 template<> PauseState* Ogre::Singleton<PauseState>::msSingleton = 0;
 
+PauseState::PauseState()
+{
+	_root = NULL;
+	_sceneMgr = NULL;
+	_viewport = NULL;
+	_camera = NULL;
+	_exitGame = NULL;
+}
+
+PauseState::~PauseState()
+{
+
+}
+
 void
 PauseState::enter ()
 {

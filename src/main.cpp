@@ -17,7 +17,7 @@ int main (int argc, char**argv) {
   GameManager* game = new GameManager();
   IntroState* introState = new IntroState();
   PlayState* playState = new PlayState();
-  PauseState* pauseState = new PauseState();
+  //PauseState* pauseState = new PauseState();
   RecordState* recordState = new RecordState();
   CreditsState* creditsState = new CreditsState();
   RecordsManager* recordsManager = new RecordsManager();
@@ -26,7 +26,7 @@ int main (int argc, char**argv) {
 
   UNUSED_VARIABLE(introState);
   UNUSED_VARIABLE(playState);
-  UNUSED_VARIABLE(pauseState);
+  //UNUSED_VARIABLE(pauseState);
   UNUSED_VARIABLE(recordState);
   UNUSED_VARIABLE(creditsState);
   UNUSED_VARIABLE(recordsManager);
@@ -34,21 +34,22 @@ int main (int argc, char**argv) {
   try
     {
       // Inicializa el juego y transición al primer estado.
-      game->start(IntroState::getSingletonPtr());
+      //game->start(IntroState::getSingletonPtr());
+	  game->start(PlayState::getSingletonPtr());
     }
   catch (Ogre::Exception& e)
     {
       std::cerr << "Excepción detectada: " << e.getFullDescription();
     }
 
-  delete recordsManager;
-  delete recordState;
-  delete creditsState;
-  //delete pauseState;
-  //delete playState;
-  //delete introState;
-  delete game;
-  cout << "MAIN_05" << endl;
+  if (game) delete game;
+  if (recordsManager) delete recordsManager;
+  if (recordState) delete recordState;
+  if (creditsState) delete creditsState;
+  //if (pauseState) delete pauseState;
+  if (playState)  delete playState;
+  if (introState) delete introState;
+
 
 
   return 0;
