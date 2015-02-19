@@ -16,6 +16,7 @@ PlayState::PlayState ()
 	_sheet = NULL;
 	_hud = NULL;
 	_endScreen = NULL;
+	_showMsg = NULL;
 
 	_timeWidget = NULL;
 	_fpsWidget = NULL;
@@ -29,10 +30,11 @@ PlayState::PlayState ()
 	_structura = NULL;
 	_suelo = NULL;
 	_muro = NULL;
-
+	_level = 1;
+	_score = 0;
 	_numVidas = 3;
 
-	_state = STATE_PLAYING;
+	_state = STATE_SHOW_LEVEL;
 }
 
 PlayState::~PlayState ()
@@ -43,8 +45,10 @@ PlayState::~PlayState ()
 void
 PlayState::enter ()
 {
-	_state = STATE_PLAYING;
+	_state = STATE_SHOW_LEVEL;
 	_numVidas = 3;
+	_level = 1;
+
 
 	_root = Ogre::Root::getSingletonPtr();
 	_win = _root->getAutoCreatedWindow();
@@ -69,6 +73,7 @@ PlayState::enter ()
 	//Config Window
 	_endScreen = CEGUI::WindowManager::getSingleton().loadWindowLayout("endScreenArkanoid.layout");
 	_hud  = CEGUI::WindowManager::getSingleton().loadWindowLayout("hudArkanoid.layout");
+	_showMsg  = CEGUI::WindowManager::getSingleton().loadWindowLayout("showMsgArkanoid.layout");
 
 	// Se crean los ImageSet
 	CEGUI::ImagesetManager::getSingleton().createFromImageFile("ImageBackGroud", "fondoHud.png");
@@ -108,9 +113,14 @@ PlayState::enter ()
 	fondoEndScreen->setProperty("Image", "set:ImageEndScreen image:full_image");
 	_endScreen->getChild("EndScreen/Fondo")->getChild("EndScreen/Salir")->subscribeEvent(CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&PlayState::clickFinishButton,this));
 
+	// Se inicializan los widgets dela ventana mostrar nivel
+	_showMsg->getChild("ShowMsgScreen/Fondo")->setProperty("Image", "set:ImageEndScreen image:full_image");
+
+
 
 	_sheet->addChildWindow(_hud);
 	_sheet->addChildWindow(_endScreen);
+	_sheet->addChildWindow(_showMsg);
 	CEGUI::System::getSingleton().setGUISheet(_sheet);
 
 	_exitGame = false;
@@ -121,6 +131,7 @@ PlayState::enter ()
 
 	CEGUI::MouseCursor::getSingleton().hide();
 	_endScreen->hide();
+	_showMsg->hide();
 
 }
 
@@ -211,10 +222,37 @@ PlayState::frameStarted
 		if (_bola->isMove()) {
 			_bola->move(delta);
 		}
+
+		// Se refresca el muro y sus elementos
+		_muro->refresh(delta);
+
+		// Se refresxa la pala
+		_pala->refresh(delta);
+
+		// Se comprueba si es fin de nivel;
+		if (_muro->levelCompleted()) {
+			_level++;
+			// se carga el nivel
+			bool finJuego = !_muro->loadLevel(_level);
+
+			if (finJuego) {
+				gameOver();
+			} else {
+				reset();
+				_state = STATE_SHOW_LEVEL;
+			}
+		}
+
 	} else if (_state == STATE_END) {
 		// Se muestra la ventana de fin de partida
+		mostrarFinJuego();
 	}  else if (_state == STATE_PAUSE) {
 		// Se muestra la ventana de pausa
+	} else if (_state == STATE_SHOW_LEVEL) {
+		// Se muestra la ventana de información del proximo nivel
+		mostrarNivel();
+	}  else if (_state == STATE_SET_RECORD) {
+		// No se hace nada. Se espera que se pulse el boton
 	}
 
 
@@ -237,37 +275,51 @@ PlayState::keyPressed
 	CEGUI::System::getSingleton().injectKeyDown(e.key);
 	CEGUI::System::getSingleton().injectChar(e.text);
 
-  // Tecla p --> PauseState.
-  if (e.key == OIS::KC_P) {
-    if (_state == STATE_PAUSE) {
-    	_state = STATE_PLAYING;
-    } else if (_state == STATE_PLAYING) {
-    	_state = STATE_PAUSE;
-    }
-  }
 
-  if (e.key == OIS::KC_LEFT) {
-    _izdaPulsado = true;
-  }
+	// Si el estado de mostrar nivel (STATE_SHOW_LEVEL) cualquier tecla pasa al estado STATE_PLAYING
+	if (_state == STATE_SHOW_LEVEL) {
+		_state = STATE_PLAYING;
+		_showMsg->hide();
 
-  if (e.key == OIS::KC_RIGHT) {
-    _dchaPulsado = true;
-  }
+	} else if (_state == STATE_END) {
+		changeState(IntroState::getSingletonPtr());
 
-  if (e.key == OIS::KC_R) {
-    _rotPulsado = true;
-  }
+	} else if (_state == STATE_PAUSE) {
+		if (e.key == OIS::KC_P) {
+			_state = STATE_PLAYING;
+		}
 
-  if (e.key == OIS::KC_SPACE) {
-	//Si no está en movimiento se activa el flag de movimiento de la bola
-	// y se cambia el nodo padre
-	if (!_bola->isMove()) {
-		_bola->setMove(true);
-		_bola->setNodeParent(_suelo->getSceneNode());
+	 }else if (_state == STATE_PLAYING)  {
+
+		// Tecla p --> PauseState.
+		if (e.key == OIS::KC_P) {
+			_state = STATE_PAUSE;
+
+		}
+
+
+		if (e.key == OIS::KC_LEFT) {
+			_izdaPulsado = true;
+		}
+
+		if (e.key == OIS::KC_RIGHT) {
+			_dchaPulsado = true;
+		}
+
+		if (e.key == OIS::KC_R) {
+			_rotPulsado = true;
+		}
+
+		if (e.key == OIS::KC_SPACE) {
+			//Si no está en movimiento se activa el flag de movimiento de la bola
+			// y se cambia el nodo padre
+			if (!_bola->isMove()) {
+				_bola->setMove(true);
+				_bola->setNodeParent(_suelo->getSceneNode());
+			}
+		}
+
 	}
-  }
-
-
 }
 
 void
@@ -290,6 +342,13 @@ PlayState::keyReleased
 
   if (e.key == OIS::KC_R) {
     _rotPulsado = false;
+  }
+
+  if (e.key == OIS::KC_E) {
+    _pala->expandPadle(60,"Pulsado");
+  }
+  if (e.key == OIS::KC_C) {
+    _pala->contractPadle();
   }
 
 }
@@ -371,8 +430,7 @@ PlayState::createScene() {
 
 	// Se inicializa el muro
 	_muro = new Wall(_sceneMgr);
-	_muro->loadLevel();
-
+	_muro->loadLevel(_level);
 }
 
 void
@@ -397,14 +455,17 @@ PlayState::reset() {
 
 		_bola->setNodeParent(_pala->getSceneNode());
 		_bola->initSetUp();
+		_bola->reset();
+
+		_pala->reset();
+		_muro->resetItems();
 }
 
 void
 PlayState::gameOver() {
 
 	_hud->getChild("Hud/Fondo")->getChild("Fondo/Vida3")->hide();
-	// Fin de partida
-	_state = STATE_END;
+
 	_bola->hide();
 	_pala->hide();
 
@@ -419,6 +480,9 @@ PlayState::gameOver() {
 	CEGUI::MouseCursor::getSingleton().show();
 	_endScreen->show();
 
+	// Estado de fin de partida
+	_state = STATE_SET_RECORD;
+
 }
 
 bool
@@ -428,14 +492,77 @@ PlayState::clickFinishButton(const CEGUI::EventArgs &e){
 	string time(_endScreen->getChild("EndScreen/Fondo")->getChild("EndScreen/TimeText")->getText().c_str());
 	string nickName(_endScreen->getChild("EndScreen/Fondo")->getChild("EndScreen/NickNameEdit")->getText().c_str());
 
-	Record record;
-	record.setNombre(nickName);
-	record.setNivel(std::atoi(level.c_str()));
-	record.setSegundosTranscurridos(_reloj.getSegundosTranscurridos());
-	RecordsManager::getSingletonPtr()->insertarRecord(record);
-
-	changeState(IntroState::getSingletonPtr());
-
+	if (nickName != "") {
+		Record record;
+		record.setNombre(nickName);
+		record.setNivel(std::atoi(level.c_str()));
+		record.setSegundosTranscurridos(_reloj.getSegundosTranscurridos());
+		RecordsManager::getSingletonPtr()->insertarRecord(record);
+	}
+	_endScreen->hide();
+	CEGUI::MouseCursor::getSingleton().hide();
+	_state = STATE_END;
 	return true;
+}
+
+Wall*
+PlayState::getMuro(){
+	return _muro;
+}
+
+Paddle*
+PlayState::getPala(){
+	return _pala;
+}
+
+Ball*
+PlayState::getBola() {
+	return _bola;
+}
+
+void
+PlayState::mostrarNivel() {
+	_showMsg->show();
+	std::stringstream texo;
+	texo << "Level: " << _level;
+
+	// Se actualiza el texto de la venta d emostra nivel
+	_showMsg->getChild("ShowMsgScreen/Fondo")->getChild("ShowMsgScreen/Txt")->setText(texo.str());
+
+	// Se actualiza el marcador
+	_hud->getChild("Hud/Fondo")->getChild("Fondo/LevelBox")->getChild("LevelBox/LevelText")->setText(Ogre::StringConverter::toString(_level));
+
+}
+
+void
+PlayState::mostrarFinJuego() {
+	_showMsg->show();
+
+	if (_numVidas == 0) {
+		// Se actualiza el texto de la venta de fin de juego
+		_showMsg->getChild("ShowMsgScreen/Fondo")->getChild("ShowMsgScreen/Txt")->setText("Game Over");
+	} else {
+		_showMsg->getChild("ShowMsgScreen/Fondo")->getChild("ShowMsgScreen/Txt")->setText("Juego Completado");
+	}
+
+}
+
+void
+PlayState::incMarcador(long valor) {
+	_score +=valor;
+	_hud->getChild("Hud/Fondo")->getChild("Fondo/ScoreBox")->getChild("ScoreBox/ScoreText")->setText(Ogre::StringConverter::toString(_score));
+
+}
+
+void
+PlayState::incVida() {
+	cout << "Se va a incrementar el numero de vidas. Antes de inc " << _numVidas << endl;
+	if (_numVidas < 3) {
+		_numVidas++;
+		if (_numVidas == 3)
+			_hud->getChild("Hud/Fondo")->getChild("Fondo/Vida1")->show();
+		else if (_numVidas == 2)
+			_hud->getChild("Hud/Fondo")->getChild("Fondo/Vida2")->show();
+	}
 }
 

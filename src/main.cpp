@@ -7,11 +7,12 @@
 #include "RecordsManager.h"
 
 #include <iostream>
+#include "Properties.h"
+
 
 using namespace std;
 
 int main (int argc, char**argv) {
-
 
   GameManager* game = new GameManager();
   IntroState* introState = new IntroState();
@@ -45,7 +46,6 @@ int main (int argc, char**argv) {
   if (creditsState) delete creditsState;
   if (playState)  delete playState;
   if (introState) delete introState;
-
 
 
   return 0;

@@ -258,7 +258,7 @@ GameManager::initSDL() {
     // Se inicializan los gestores de sonido (track y FX)
     GameManager::_pTrackManager = new TrackManager;
     GameManager::_pSoundFXManager = new SoundFXManager;
-
+    new GameSoundFX;
     return true;
 }
 

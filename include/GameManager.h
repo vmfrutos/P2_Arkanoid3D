@@ -10,6 +10,7 @@
 #include "InputManager.h"
 #include "SoundFXManager.h"
 #include "TrackManager.h"
+#include "GameSoundFX.h"
 
 using namespace std;
 

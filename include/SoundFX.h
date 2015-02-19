@@ -20,6 +20,7 @@ class SoundFX: public Ogre::Resource {
   ~SoundFX();
 
   int play(int loop = 0);
+  bool isPlaying (int channel);
         
  protected:
   void loadImpl();

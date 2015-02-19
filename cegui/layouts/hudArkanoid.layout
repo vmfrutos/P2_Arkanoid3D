@@ -37,7 +37,7 @@
             		<Property Name="FrameEnabled" Value="False" />
             		<Property Name="Font" Value="DejaVuSans-15" />
             		<Property Name="HorzFormatting" Value="HorzCentred" />	
-            		<Property Name="Text" Value="10" />
+            		<Property Name="Text" Value="" />
         		</Window>
 			</Window> 
 			
@@ -51,7 +51,7 @@
             		<Property Name="FrameEnabled" Value="False" />
             		<Property Name="Font" Value="DejaVuSans-15" />
             		<Property Name="HorzFormatting" Value="HorzCentred" />	
-            		<Property Name="Text" Value="10" />
+            		<Property Name="Text" Value="" />
         		</Window>
 			</Window> 
 			

@@ -32,7 +32,7 @@ SoundFX::play
   int channel;
   Ogre::LogManager* pLogManager = Ogre::LogManager::getSingletonPtr();
 
-  if ((channel = Mix_PlayChannel(1, _pSound, loop)) == -1) {
+  if ((channel = Mix_PlayChannel(-1, _pSound, loop)) == -1) {
     pLogManager->logMessage("SoundFX::play() Imposible reproducir el efecto de sonido.");
     throw (Ogre::Exception(Ogre::Exception::ERR_INTERNAL_ERROR,
 			   "Imposible reproducir el efecto de sonido",
@@ -40,6 +40,18 @@ SoundFX::play
   }
 
   return channel;
+}
+
+bool
+SoundFX::isPlaying
+(int channel)
+{
+	int ret;
+	ret =Mix_Playing(channel);
+	if (ret == 0)
+		return false;
+	else
+		return true;
 }
 
 void
@@ -65,6 +77,7 @@ SoundFX::loadImpl()
   // Cargar el efecto de sonido.
   if ((_pSound = Mix_LoadWAV(_path.c_str())) == NULL) {
     pLogManager->logMessage("SoundFX::loadImpl() Imposible cargar el efecto.");
+    pLogManager->logMessage(Mix_GetError());
     throw (Ogre::Exception(Ogre::Exception::ERR_INTERNAL_ERROR,
 			   "Imposible cargar el efecto",
 			   "SoundFX::loadImpl()"));

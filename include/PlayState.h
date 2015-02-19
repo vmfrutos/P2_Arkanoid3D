@@ -14,6 +14,7 @@
 
 
 class Ball;
+class Wall;
 class PlayState : public Ogre::Singleton<PlayState>, public GameState
 {
  public:
@@ -41,6 +42,15 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
 
 	void quitarVida();
 	void reset();
+	void mostrarNivel();
+	void mostrarFinJuego();
+	void incMarcador(long valor);
+	void incVida();
+
+
+	Wall* getMuro();
+	Paddle* getPala();
+	Ball* getBola();
 
  protected:
 	Ogre::Root* _root;
@@ -62,6 +72,7 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
 	CEGUI::Window* _sheet;
 	CEGUI::Window* _hud;
 	CEGUI::Window* _endScreen;
+	CEGUI::Window* _showMsg;
 
 	CEGUI::Window* _timeWidget;
 	CEGUI::Window* _fpsWidget;
@@ -75,6 +86,8 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
 	Ground* _suelo;
 	Wall* _muro;
 	int _state;
+	int _level;
+	long _score;
 
 
 	bool _izdaPulsado;
@@ -85,7 +98,11 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
 
 	// ESTADOS DE LA PARTIDA
 	const int STATE_PLAYING = 0;
-	const int STATE_END = 1;
-	const int STATE_PAUSE = 2;
+	const int STATE_SHOW_LEVEL = 1;
+	const int STATE_END = 2;
+	const int STATE_PAUSE = 3;
+	const int STATE_SET_RECORD = 4;
+
+
 };
 #endif
