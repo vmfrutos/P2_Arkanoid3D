@@ -1,0 +1,54 @@
+# Las posiciones de las filas color_X pueden tener los siguientes valores:
+# 0 --> No se pinta el ladrillo
+# 1 --> Se pone un ladrillo rojo
+# 2 --> Se pone un ladrillo verde
+# 3 --> Se pone un ladrillo amarillo
+# 4 --> Se pone un ladrillo azul
+
+color_0=000000000000000000
+color_1=220033002200330022
+color_2=220033002200330022
+color_3=444444444444444444
+color_4=444444444444444444
+color_5=000000000000000000
+color_6=000000000000000000
+color_7=000000000000000000
+color_8=000000000000000000
+color_9=000000000000000000
+
+
+# Las posiciones de las filas resist_X indica en número de toques necesarios
+# para quitar un ladrillo. Si en una posicion se ha indicado que no hay ladrillo
+# se ignora el valor 
+ 
+resis_0=111111111111111111
+resis_1=111111111111111111
+resis_2=111111111111111111
+resis_3=111111111111111111
+resis_4=222222222222222222
+resis_5=111111111111111111
+resis_6=111111111111111111
+resis_7=111111111111111111
+resis_8=111111111111111111
+resis_9=111111111111111111
+
+# Las posiciones de las filas item_X indica el item que tiene un ladrillo
+# Si en una posicion se ha indicado que no hay ladrillo se ignora el valor
+# Los posibles valores son:
+# 0 --> No tiene item
+# 1 --> Vida extra (nunca se podrán tener mas de 3 vidas)
+# 2 --> Ampliación de la pala 20 segundos
+# 3 --> Ampliación de la pala 60 segundos
+# 4 --> Se ralentiza la bola 15 segundos
+ 
+item_0=000000000000000000
+item_1=000000000000000000
+item_2=000000000000000000
+item_3=444444444444444444
+item_4=000000000000000000
+item_5=000000000000000000
+item_6=000000000000000000
+item_7=000000000000000000
+item_8=000000000000000000
+item_9=000000000000000000
+  

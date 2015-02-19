@@ -1,0 +1,75 @@
+// mat_rojo genrated by blender2ogre 0.6.0
+
+material mat_rojo 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass mat_rojo
+        {
+        lighting on
+ 
+         ambient 0.30 0.10 0.10 1
+         diffuse 0.80 0.10 0.10 1
+         emissive 0 0 0 1
+
+        }
+    }
+}
+
+material mat_verde 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass mat_verde
+        {
+        lighting on
+ 
+         ambient 0.10 0.30 0.10 1
+         diffuse 0.10 0.80 0.10 1
+         emissive 0 0 0 1
+
+        }
+    }
+}
+
+material mat_amarillo 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass mat_amarillo
+        {
+        lighting on
+ 
+         ambient 0.3 0.3 0.1 1
+         diffuse 0.80 0.80 0.10 1
+         emissive 0 0 0 1
+
+        }
+    }
+}
+
+material mat_azul 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass mat_azul
+        {
+        lighting on
+ 
+         ambient 0.1 0.1 0.3 1
+         diffuse 0.10 0.10 0.80 1
+         emissive 0 0 0 1
+
+        }
+    }
+}
+
+
