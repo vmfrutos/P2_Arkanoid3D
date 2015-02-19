@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout version="4">
+    <Window Type="DefaultWindow" Name="ShowMsgScreen" >
+		<Property Name="UnifiedAreaRect" Value="{{0.15,0},{0.2,0},{0.65,0},{0.8,0}}" />
+        
+		<Window Type="TaharezLook/StaticImage" Name="ShowMsgScreen/Fondo" >
+			<Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+			<Property Name="BackgroundEnabled" Value="False" /> 
+            <Property Name="FrameEnabled" Value="False" />
+            
+        	<Window Type="TaharezLook/StaticText" Name="ShowMsgScreen/Txt" >
+            	<Property Name="UnifiedAreaRect" Value="{{0.0,0},{0.0,0},{1,0},{1,0}}" />
+            	<Property Name="BackgroundEnabled" Value="False" /> 
+            	<Property Name="FrameEnabled" Value="False" />
+				<Property Name="HorzFormatting" Value="HorzCentred" />
+				<Property Name="VertFormatting" Value="VertCentred" />            	
+            	<Property Name="TextColours" Value="FFFF0000" />
+            	<Property Name="Font" Value="DejaVuSans-30" />
+				<Property Name="Text" Value="" />            	
+        	</Window>
+        	
+		</Window>
+    </Window>
+</GUILayout>
