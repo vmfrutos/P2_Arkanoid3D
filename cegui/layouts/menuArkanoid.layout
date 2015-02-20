@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<GUILayout version="4" >
+<GUILayout>
     <Window Type="DefaultWindow" Name="Menu" >
         <Property Name="UnifiedAreaRect" Value="{{0.00156255,0},{0.588889,0},{0.325782,0},{0.966667,0}}" />
         <Window Type="TaharezLook/Button" Name="Menu/Jugar" >
