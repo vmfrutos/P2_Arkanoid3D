@@ -14,8 +14,8 @@ IntroState::IntroState() {
 	_nodeCamara = NULL;
 	_nodeFoco = NULL;
 	_exitState = false;
-	_numArboles = 55;
-	_numArbolesSecos = 55;
+	_numArboles = 550;
+	_numArbolesSecos = 550;
 	_sheet = NULL;
 	_menu = NULL;
 	srand (time(NULL));
@@ -121,6 +121,7 @@ IntroState::frameStarted
 
 	// Se hace rotar la camara y el foco
 	Ogre::Quaternion incremento(Ogre::Degree(grados * deltaT * velocidad), Ogre::Vector3::UNIT_Y);
+
 	_nodeCamara->rotate(incremento,Ogre::Node::TS_WORLD);
 	_nodeFoco->rotate(incremento,Ogre::Node::TS_WORLD);
 
@@ -204,24 +205,24 @@ IntroState::createScene() {
 	_sceneMgr->setAmbientLight(Ogre::ColourValue(0.9, 0.9, 0.9));
 
 	//_sceneMgr->setShadowTextureCount(2);
-	//_sceneMgr->setShadowTextureSize(16384);
-	_sceneMgr->setShadowTextureSize(1024);
+	_sceneMgr->setShadowTextureSize(16384);
+	//_sceneMgr->setShadowTextureSize(1024);
 
 
 
-	Ogre::Light* light1 = _sceneMgr->createLight("Light2");
+	Ogre::Light* light1 = _sceneMgr->createLight("Light1");
 	light1->setDirection(Ogre::Vector3(0.07,-0.704,0.77));
-
-	/*
 	light1->setPosition(0,4,-2);
 	light1->setType(Ogre::Light::LT_DIRECTIONAL);
-	*/
 
+
+	/*
 	light1->setPosition(0,4.63,-2.93);
 	light1->setType(Ogre::Light::LT_SPOTLIGHT);
 	light1->setSpotlightInnerAngle(Ogre::Degree(25));
 	light1->setSpotlightOuterAngle(Ogre::Degree(70));
 	light1->setSpotlightFalloff(0);
+	*/
 
 	light1->setPowerScale(1.7299998998641968);
 	light1->setCastShadows(true);

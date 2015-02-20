@@ -56,7 +56,7 @@ PlayState::enter ()
 
 	// Se define una camara
 	_camera = _sceneMgr->createCamera("PlayCamera");
-	_camera->setPosition(Ogre::Vector3(28.37,12.38,-25.50));
+	_camera->setPosition(Ogre::Vector3(-20,13,20));
 	_camera->lookAt(Ogre::Vector3(0,5.85,0));
 	_camera->setFOVy (Ogre::Degree(50));
 	_camera->setNearClipDistance(1);
@@ -431,6 +431,57 @@ PlayState::createScene() {
 	// Se inicializa el muro
 	_muro = new Wall(_sceneMgr);
 	_muro->loadLevel(_level);
+
+	// Se añaden los bancos de attrezz
+
+	Ogre::Entity* _entBanco1 = _sceneMgr->createEntity("Banco1", "Banco.mesh");
+	Ogre::Entity* _entBanco2 = _sceneMgr->createEntity("Banco2", "Banco.mesh");
+	Ogre::Entity* _entBanco3 = _sceneMgr->createEntity("Banco3", "Banco.mesh");
+	Ogre::Entity* _entBanco4 = _sceneMgr->createEntity("Banco4", "Banco.mesh");
+	Ogre::Entity* _entBanco5 = _sceneMgr->createEntity("Banco5", "Banco.mesh");
+	Ogre::Entity* _entBanco6 = _sceneMgr->createEntity("Banco6", "Banco.mesh");
+	Ogre::Entity* _entBanco7 = _sceneMgr->createEntity("Banco7", "Banco.mesh");
+	Ogre::Entity* _entBanco8 = _sceneMgr->createEntity("Banco8", "Banco.mesh");
+
+	Ogre::SceneNode* _nodeBanco1 = _sceneMgr->createSceneNode("Banco1");
+	Ogre::SceneNode* _nodeBanco2 = _sceneMgr->createSceneNode("Banco2");
+	Ogre::SceneNode* _nodeBanco3 = _sceneMgr->createSceneNode("Banco3");
+	Ogre::SceneNode* _nodeBanco4 = _sceneMgr->createSceneNode("Banco4");
+	Ogre::SceneNode* _nodeBanco5 = _sceneMgr->createSceneNode("Banco5");
+	Ogre::SceneNode* _nodeBanco6 = _sceneMgr->createSceneNode("Banco6");
+	Ogre::SceneNode* _nodeBanco7 = _sceneMgr->createSceneNode("Banco7");
+	Ogre::SceneNode* _nodeBanco8 = _sceneMgr->createSceneNode("Banco8");
+
+	_nodeBanco1->attachObject(_entBanco1);
+	_nodeBanco2->attachObject(_entBanco2);
+	_nodeBanco3->attachObject(_entBanco3);
+	_nodeBanco4->attachObject(_entBanco4);
+	_nodeBanco5->attachObject(_entBanco5);
+	_nodeBanco6->attachObject(_entBanco6);
+	_nodeBanco7->attachObject(_entBanco7);
+	_nodeBanco8->attachObject(_entBanco8);
+
+	_sceneMgr->getRootSceneNode()->addChild(_nodeBanco1);
+	_sceneMgr->getRootSceneNode()->addChild(_nodeBanco2);
+	_sceneMgr->getRootSceneNode()->addChild(_nodeBanco3);
+	_sceneMgr->getRootSceneNode()->addChild(_nodeBanco4);
+	_sceneMgr->getRootSceneNode()->addChild(_nodeBanco5);
+	_sceneMgr->getRootSceneNode()->addChild(_nodeBanco6);
+	_sceneMgr->getRootSceneNode()->addChild(_nodeBanco7);
+	_sceneMgr->getRootSceneNode()->addChild(_nodeBanco8);
+
+	_nodeBanco1->translate(-12,0,-15);
+	_nodeBanco2->translate(-2,0,-15);
+	_nodeBanco3->translate(8,0,-15);
+	_nodeBanco4->translate(18,0,-15);
+
+	_nodeBanco5->translate(-12,0,15);
+	_nodeBanco6->translate(-2,0,15);
+	_nodeBanco7->translate(8,0,15);
+	_nodeBanco8->translate(18,0,15);
+
+
+
 }
 
 void
