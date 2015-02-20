@@ -4,22 +4,22 @@
     <Window Type="DefaultWindow" Name="Menu" >
         <Property Name="UnifiedAreaRect" Value="{{0.00156255,0},{0.588889,0},{0.325782,0},{0.966667,0}}" />
         <Window Type="TaharezLook/Button" Name="Menu/Jugar" >
-            <Property Name="UnifiedAreaRect" Value="{{0.045,0},{0.100,0},{0.710,60},{0.100,50}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.10,0},{0.20,0},{0.90,0},{0.35,0}}" />
             <Property Name="Text" Value="Play" />
             <Property Name="Alpha" Value="0.3" />
         </Window>
         <Window Type="TaharezLook/Button" Name="Menu/Records" >
-            <Property Name="UnifiedAreaRect" Value="{{0.045,0},{0.350,0},{0.710,60},{0.350,50}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.10,0},{0.40,0},{0.90,0},{0.55,0}}" />
             <Property Name="Text" Value="Records" />
             <Property Name="Alpha" Value="0.3" />
         </Window>
         <Window Type="TaharezLook/Button" Name="Menu/Creditos" >
-            <Property Name="UnifiedAreaRect" Value="{{0.045,0},{0.600,0},{0.710,60},{0.600,50}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.10,0},{0.60,0},{0.90,0},{0.75,0}}" />
             <Property Name="Text" Value="Credits" />
             <Property Name="Alpha" Value="0.3" />
         </Window>
 		<Window Type="TaharezLook/Button" Name="Menu/Salir" >
-            <Property Name="UnifiedAreaRect" Value="{{0.045,0},{0.850,0},{0.710,60},{0.850,50}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.10,0},{0.80,0},{0.90,0},{0.95,0}}" />
             <Property Name="Text" Value="Exit" />
             <Property Name="Alpha" Value="0.3" />
     	</Window>
