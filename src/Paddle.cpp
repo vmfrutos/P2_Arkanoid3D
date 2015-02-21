@@ -81,8 +81,26 @@ Paddle::isCollisionWihtStructure(const Ogre::String& name)
 
 	    	Ogre::SceneQueryMovableObjectPair pObject = static_cast <Ogre::SceneQueryMovableObjectPair> (* iter);
 
-	    	Ogre::String strFirst = pObject.first-> getName ();
-	    	Ogre::String strSecond = pObject.second-> getName ();
+	    	Ogre::String strFirst = pObject.first-> getName();
+	    	Ogre::String strSecond = pObject.second-> getName();
+
+	     	if (strFirst == name || strSecond == name) {
+	     		if (strFirst == "PalaI" ||
+	     			strSecond == "PalaI" ||
+	     			strFirst == "PalaD" ||
+	     			strSecond == "PalaD" ||
+	     			strFirst == "PalaC" ||
+	     			strSecond == "PalaC" ||
+	     			strFirst == "PalaExtI" ||
+	     			strSecond == "PalaExtI" ||
+	     			strFirst == "PalaExtD" ||
+	     			strSecond == "PalaExtD") {
+	     			return true;
+	     		}
+	     	}
+
+
+	    	/*
 	    	if (strFirst == "PalaI" || strSecond == "PalaI") {
 
 	    		if (strFirst == name || strSecond == name){
@@ -109,6 +127,8 @@ Paddle::isCollisionWihtStructure(const Ogre::String& name)
 	    			return true;
 	    		}
 	    	}
+
+	    	*/
 	    }
 
     return false;
