@@ -1,12 +1,12 @@
-// Pierre calcaire.001 genrated by blender2ogre 0.6.0
+// Pierre_calcaire.001 genrated by blender2ogre 0.6.0
 
-material Pierre calcaire.001 
+material Pierre_calcaire.001 
 {
     receive_shadows on 
 
     technique
     {
-        pass Pierre calcaire.001
+        pass Pierre_calcaire.001
         {
             ambient 1.0 1.0 1.0 1.0
             diffuse 1.0 1.0 1.0 1.0
