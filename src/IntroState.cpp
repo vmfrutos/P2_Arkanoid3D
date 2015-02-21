@@ -14,8 +14,8 @@ IntroState::IntroState() {
 	_nodeCamara = NULL;
 	_nodeFoco = NULL;
 	_exitState = false;
-	_numArboles = 550;
-	_numArbolesSecos = 550;
+	_numArboles = 100;
+	_numArbolesSecos = 100;
 	_sheet = NULL;
 	_menu = NULL;
 	srand (time(NULL));

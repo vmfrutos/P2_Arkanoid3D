@@ -133,6 +133,8 @@ PlayState::enter ()
 	_endScreen->hide();
 	_showMsg->hide();
 
+	_lastFrame = 0;
+
 }
 
 void
@@ -187,6 +189,13 @@ PlayState::frameStarted
 	Ogre::Vector3 vt(0,0,0);
 	float delta = evt.timeSinceLastFrame;
 	int fps = 0.0;
+
+
+	if (_lastFrame < 0.04){
+		_lastFrame += delta;
+		return true;
+	}
+	_lastFrame = delta;
 
 	if (delta == 0.0) {
 		fps = 1000; // esto es por evitar división por 0 en equipos muy rápidos
