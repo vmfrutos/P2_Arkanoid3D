@@ -20,16 +20,6 @@ Brick::Brick(Ogre::SceneManager* sceneMgr, int color, int fila, int columna) {
 	_animLadrillo->setEnabled(true);
 	_animLadrillo->setLoop(false);
 
-
-
-	std::stringstream nombreNodo;
-	nombreNodo << "Ladrillo" << _fila << "_" << _columna;
-	_nodeBrick = sceneMgr->createSceneNode(nombreNodo.str());
-
-	_nodeBrick->attachObject(_entBrick);
-
-	_sceneMgr->getRootSceneNode()->addChild(_nodeBrick);
-
 	if (_color == COLOR_INVISIBLE) {
 		hide();
 	} else if (color == COLOR_ROJO) {
@@ -41,6 +31,17 @@ Brick::Brick(Ogre::SceneManager* sceneMgr, int color, int fila, int columna) {
 	} else if (color == COLOR_AZUL) {
 		setMaterial("mat_azul");
 	}
+
+
+	std::stringstream nombreNodo;
+	nombreNodo << "Ladrillo" << _fila << "_" << _columna;
+	_nodeBrick = sceneMgr->createSceneNode(nombreNodo.str());
+
+	_nodeBrick->attachObject(_entBrick);
+
+	_sceneMgr->getRootSceneNode()->addChild(_nodeBrick);
+
+
 
 	_state = ANIM_NO_ACTIVE;
 
