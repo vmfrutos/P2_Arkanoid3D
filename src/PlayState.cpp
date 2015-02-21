@@ -507,8 +507,9 @@ PlayState::reset() {
 		_pala->setNodeParent(_suelo->getSceneNode());
 		_pala->initSetUp();
 
-		_bola->initSetUp();
+
 		_bola->setNodeParent(_pala->getSceneNode());
+		_bola->initSetUp();
 		_bola->reset();
 
 		_pala->reset();

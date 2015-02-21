@@ -37,7 +37,7 @@ Ball::initSetUp() {
 	_comprobarColision[COLISION_PALA_EXT_D] = false;
 	_comprobarColision[COLISION_SUELO] = false;
 	_comprobarColision[COLISION_LADRILLO] = true;
-	_nodeBola->setPosition(0.0,0.6,0.0);
+	_nodeBola->translate(0.0,0.6,0.0);
 	_direccion = Ogre::Vector3(0,1,0);
 }
 
