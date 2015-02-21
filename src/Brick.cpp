@@ -123,7 +123,13 @@ Brick::isVisible(){
 void
 Brick::setMaterial(const Ogre::String& matName){
 
-	_entBrick->setMaterialName(matName);
+	//_entBrick->setMaterialName(matName);
+
+	std::stringstream nombreLadrillo;
+	nombreLadrillo << "Ladrillo" << _fila << "_" << _columna;
+
+	Ogre::Entity *ent = static_cast <Ogre::Entity *> (_nodeBrick->getAttachedObject(nombreLadrillo.str()));
+	ent->setMaterialName(matName);
 }
 
 void
