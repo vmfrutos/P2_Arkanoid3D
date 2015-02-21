@@ -133,8 +133,6 @@ PlayState::enter ()
 	_endScreen->hide();
 	_showMsg->hide();
 
-	_lastFrame = 0;
-
 }
 
 void
@@ -191,11 +189,7 @@ PlayState::frameStarted
 	int fps = 0.0;
 
 
-	if (_lastFrame < 0.04){
-		_lastFrame += delta;
-		return true;
-	}
-	_lastFrame = delta;
+
 
 	if (delta == 0.0) {
 		fps = 1000; // esto es por evitar división por 0 en equipos muy rápidos
@@ -403,7 +397,7 @@ PlayState::createScene() {
 	_sceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_MODULATIVE);
 	_sceneMgr->setShadowColour(Ogre::ColourValue(0.5, 0.5, 0.5) );
 	_sceneMgr->setAmbientLight(Ogre::ColourValue(0.9, 0.9, 0.9));
-	_sceneMgr->setShadowTextureSize(16384);
+	_sceneMgr->setShadowTextureSize(512);
 
 	Ogre::Light* light1 = _sceneMgr->createLight("Light1");
 	light1->setPosition(0,4,-2);

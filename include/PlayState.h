@@ -94,7 +94,6 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
 	bool _dchaPulsado;
 	bool _rotPulsado;
 
-	float _lastFrame;
 
 	Ogre::SceneNode* _nodeCamara;
 
