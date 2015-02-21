@@ -100,7 +100,7 @@ Ball::move(float timeSinceLastFrame) {
 
 			} else {
 				_direccionrefleja = Ogre::Vector3(_direccion.x,-_direccion.y,0.0);
-				desvio = ((rand() % 5))/100.0;
+				desvio = ((rand() % 4))/100.0;
 			}
 			_direccion = _direccionrefleja + Ogre::Vector3(desvio,0,0);
 			GameSoundFX::getSingletonPtr()->setSoundFX(GameSoundFX::FX_BOLA_PALA);
@@ -109,12 +109,17 @@ Ball::move(float timeSinceLastFrame) {
 		// si ha colisionado con la pala centro
 		else if (!_comprobarColision[COLISION_PALA_C]) {
 			Ogre::Vector3 _direccionrefleja = Ogre::Vector3(_direccion.x,-_direccion.y,0.0);
-			float desvio = ((rand() % 6)+8)/100.0;
+			float desvio = ((rand() % 6)+10)/100.0;
+
+			int signo = (rand() % 2);
+			if (signo == 0) {
+				desvio = -desvio;
+			}
 
 			if (_direccion.x <=0 && _direccion.y <=0) {
-				_direccion = _direccionrefleja + Ogre::Vector3(desvio,0,0);
-			} else {
 				_direccion = _direccionrefleja - Ogre::Vector3(desvio,0,0);
+			} else {
+				_direccion = _direccionrefleja + Ogre::Vector3(desvio,0,0);
 			}
 			GameSoundFX::getSingletonPtr()->setSoundFX(GameSoundFX::FX_BOLA_PALA);
 		}

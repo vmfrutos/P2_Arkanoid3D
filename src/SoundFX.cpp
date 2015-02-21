@@ -43,6 +43,23 @@ SoundFX::play
   return channel;
 }
 
+int
+SoundFX::play
+(int channel, int loop)
+{
+  Ogre::LogManager* pLogManager = Ogre::LogManager::getSingletonPtr();
+
+  if ((channel = Mix_PlayChannel(channel, _pSound, loop)) == -1) {
+    pLogManager->logMessage("SoundFX::play() Imposible reproducir el efecto de sonido.");
+    pLogManager->logMessage(Mix_GetError());
+    throw (Ogre::Exception(Ogre::Exception::ERR_INTERNAL_ERROR,
+			   "Imposible reproducir el efecto de sonido",
+			   "SoundFX::play()"));
+  }
+
+  return channel;
+}
+
 bool
 SoundFX::isPlaying
 (int channel)
