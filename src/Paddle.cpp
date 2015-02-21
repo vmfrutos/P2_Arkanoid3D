@@ -86,17 +86,20 @@ Paddle::isCollisionWihtStructure(const Ogre::String& name)
 	    	Ogre::String strFirst = pObject.first-> getName();
 	    	Ogre::String strSecond = pObject.second-> getName();
 
-	     	if (strFirst == name || strSecond == name) {
-	     		if (strFirst == "PalaI" ||
-	     			strSecond == "PalaI" ||
-	     			strFirst == "PalaD" ||
+	     	if (strFirst == name) {
+	     		if (strSecond == "PalaI" ||
 	     			strSecond == "PalaD" ||
-	     			strFirst == "PalaC" ||
 	     			strSecond == "PalaC" ||
-	     			strFirst == "PalaExtI" ||
 	     			strSecond == "PalaExtI" ||
-	     			strFirst == "PalaExtD" ||
 	     			strSecond == "PalaExtD") {
+	     			return true;
+	     		}
+	     	} else if (strSecond == name) {
+	     		if (strFirst == "PalaI" ||
+	     			strFirst == "PalaD" ||
+	     			strFirst == "PalaC" ||
+	     			strFirst == "PalaExtI" ||
+	     			strFirst == "PalaExtD") {
 	     			return true;
 	     		}
 	     	}
