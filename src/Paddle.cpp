@@ -58,16 +58,18 @@ Paddle::setNodeParent(Ogre::SceneNode* newParent) {
 void
 Paddle::moveRight(float timeSinceLastFrame){
 	Ogre::Vector3 izda(1.0,0.0,0.0);
-	if (!isCollisionWihtStructure("Pared1")) {
-		_nodePaddle->translate(izda * timeSinceLastFrame * _speed);
+	_nodePaddle->translate(izda * timeSinceLastFrame * _speed);
+	if (isCollisionWihtStructure("Pared1")) {
+		_nodePaddle->translate((-izda) * timeSinceLastFrame * _speed);
 	}
 }
 
 void
 Paddle::moveLeft(float timeSinceLastFrame){
 	Ogre::Vector3 dcha(-1.0,0.0,0.0);
-	if (!isCollisionWihtStructure("Pared2")) {
-		_nodePaddle->translate(dcha * timeSinceLastFrame * _speed);
+	_nodePaddle->translate(dcha * timeSinceLastFrame * _speed);
+	if (isCollisionWihtStructure("Pared2")) {
+		_nodePaddle->translate((-dcha) * timeSinceLastFrame * _speed);
 	}
 }
 
