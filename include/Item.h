@@ -19,6 +19,7 @@ public:
 	void ampliarPala(int segundos);
 	void reset();
 	void redicirVelocidadBola(int segundos);
+	void setMaterial(const Ogre::String& matName);
 
 
 	const int ITEM_TIPO_VIDA_EXTRA = 1;

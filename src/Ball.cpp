@@ -85,7 +85,7 @@ Ball::move(float timeSinceLastFrame) {
 
 			} else {
 				_direccionrefleja = Ogre::Vector3(_direccion.x,-_direccion.y,0.0);
-				desvio = ((rand() % 5)+20)/100.0;
+				desvio = ((rand() % 5))/100.0;
 			}
 			_direccion = _direccionrefleja - Ogre::Vector3(desvio,0,0);
 			GameSoundFX::getSingletonPtr()->setSoundFX(GameSoundFX::FX_BOLA_PALA);
@@ -100,7 +100,7 @@ Ball::move(float timeSinceLastFrame) {
 
 			} else {
 				_direccionrefleja = Ogre::Vector3(_direccion.x,-_direccion.y,0.0);
-				desvio = ((rand() % 5)+20)/100.0;
+				desvio = ((rand() % 5))/100.0;
 			}
 			_direccion = _direccionrefleja + Ogre::Vector3(desvio,0,0);
 			GameSoundFX::getSingletonPtr()->setSoundFX(GameSoundFX::FX_BOLA_PALA);
@@ -109,7 +109,7 @@ Ball::move(float timeSinceLastFrame) {
 		// si ha colisionado con la pala centro
 		else if (!_comprobarColision[COLISION_PALA_C]) {
 			Ogre::Vector3 _direccionrefleja = Ogre::Vector3(_direccion.x,-_direccion.y,0.0);
-			float desvio = ((rand() % 3)+6)/100.0;
+			float desvio = ((rand() % 6)+8)/100.0;
 
 			if (_direccion.x <=0 && _direccion.y <=0) {
 				_direccion = _direccionrefleja + Ogre::Vector3(desvio,0,0);
@@ -338,7 +338,7 @@ Ball::isCollision(const Ogre::Vector3& position, const Ogre::Vector3& direction,
     			_comprobarColision[COLISION_PALA_EXT_I] = true;
     			_comprobarColision[COLISION_PALA_EXT_D] = true;
         		_comprobarColision[COLISION_SUELO] = true;
-        		_comprobarColision[COLISION_LADRILLO] = true;
+        		_comprobarColision[COLISION_LADRILLO] = false;
         		//cout << "*****************Colision:  " << pObject.first-> getName () << " y " << pObject.second-> getName () << endl;
         		return true;
         	}

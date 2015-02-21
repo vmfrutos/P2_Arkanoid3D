@@ -34,6 +34,7 @@ SoundFX::play
 
   if ((channel = Mix_PlayChannel(-1, _pSound, loop)) == -1) {
     pLogManager->logMessage("SoundFX::play() Imposible reproducir el efecto de sonido.");
+    pLogManager->logMessage(Mix_GetError());
     throw (Ogre::Exception(Ogre::Exception::ERR_INTERNAL_ERROR,
 			   "Imposible reproducir el efecto de sonido",
 			   "SoundFX::play()"));

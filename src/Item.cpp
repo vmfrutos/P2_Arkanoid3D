@@ -21,6 +21,16 @@ Item::Item(Ogre::SceneManager* sceneMgr, int tipo, Ogre::Vector3 posicionInicial
 	_animItem = _entItem->getAnimationState("animItem");
 	_animItem->setEnabled(true);
 	_animItem->setLoop(true);
+
+	if (tipo == ITEM_TIPO_VIDA_EXTRA) {
+		setMaterial("mat_rojo");
+	} else if (tipo == ITEM_TIPO_PALA_20) {
+		setMaterial("mat_verde");
+	} else if (tipo == ITEM_TIPO_PALA_60) {
+		setMaterial("mat_azul");
+	} else if (tipo == ITEM_TIPO_BOLA_LENTA_15) {
+		setMaterial("mat_amarillo");
+	}
 }
 Item::~Item() {
 	_sceneMgr->destroyEntity(_entItem);
@@ -38,11 +48,13 @@ Item::refresh(float timeSinceLastFrame) {
 		if (isCollisionWihtStructure(elemntoColisionado)) {
 			if (elemntoColisionado == "Suelo") {
 				_status = ITEM_STATUS_FINALIZADO;
+
 			} else {
 				_status = ITEM_STATUS_ACTIVO;
+				GameSoundFX::getSingletonPtr()->setSoundFX(GameSoundFX::FX_PALA_ITEM);
 			}
 			_entItem->setVisible(false);
-			GameSoundFX::getSingletonPtr()->setSoundFX(GameSoundFX::FX_PALA_ITEM);
+
 		}
 	} else if (_status == ITEM_STATUS_ACTIVO) {
 		if (_tipo == ITEM_TIPO_VIDA_EXTRA) {
@@ -140,4 +152,11 @@ void
 Item::reset(){
 	_status = ITEM_STATUS_DORMIDO;
 	_entItem->setVisible(false);
+}
+
+void
+Item::setMaterial(const Ogre::String& matName){
+
+	_entItem->setMaterialName(matName);
+
 }

@@ -123,7 +123,7 @@ Brick::isVisible(){
 void
 Brick::setMaterial(const Ogre::String& matName){
 
-	_entBrick->setMaterialName("mat_verde");
+	_entBrick->setMaterialName(matName);
 
 	/*
 	std::stringstream nombreLadrillo;

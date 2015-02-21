@@ -14,20 +14,25 @@ GameSoundFX::~GameSoundFX(){
 
 void
 GameSoundFX::setSoundFX(int fx) {
-
+	int channel = 0;
 	if (FX_BOLA_STRUCTURA == fx) {
-		_audioBallStructure->play(0);
+		 channel = _audioBallStructure->play(0);
+		 cout << "Usando canal: "<< channel << endl;
 	} else if (FX_BOLA_PALA == fx) {
-		_audioBallPaddle->play(0);
+		 channel = _audioBallPaddle->play(0);
+		 cout << "Usando canal: "<< channel << endl;
 	} else if (FX_BOLA_LADRILLO == fx) {
-		_audioBallBrick->play(0);
+		 channel = _audioBallBrick->play(0);
+		 cout << "Usando canal: "<< channel << endl;
 	} else if (FX_BOLA_SUELO == fx) {
 		int channel = _audioBallSuelo->play(0);
+		 cout << "Usando canal: "<< channel << endl;
 		while (_audioBallSuelo->isPlaying(channel) == true) {
 			sleep(0.1);
 		}
 	} else if (FX_PALA_ITEM == fx) {
-		_audioPaddleItem->play(0);
+		 channel = _audioPaddleItem->play(0);
+		 cout << "Usando canal: "<< channel << endl;
 	}
 
 }
