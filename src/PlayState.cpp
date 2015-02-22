@@ -397,7 +397,8 @@ PlayState::createScene() {
 	_sceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_MODULATIVE);
 	_sceneMgr->setShadowColour(Ogre::ColourValue(0.5, 0.5, 0.5) );
 	_sceneMgr->setAmbientLight(Ogre::ColourValue(0.9, 0.9, 0.9));
-	_sceneMgr->setShadowTextureSize(512);
+	//_sceneMgr->setShadowTextureSize(512);
+	_sceneMgr->setShadowTextureSize(16384);
 
 	Ogre::Light* light1 = _sceneMgr->createLight("Light1");
 	light1->setPosition(0,4,-2);
