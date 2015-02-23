@@ -28,7 +28,11 @@ GameSoundFX::setSoundFX(int fx) {
 		int channel = _audioBallSuelo->play(FX_BOLA_SUELO,0);
 		 cout << "Usando canal: "<< channel << endl;
 		while (_audioBallSuelo->isPlaying(channel) == true) {
+#ifdef WIN32
+			Sleep(0.1);
+#else
 			sleep(0.1);
+#endif
 		}
 	} else if (FX_PALA_ITEM == fx) {
 		 channel = _audioPaddleItem->play(FX_PALA_ITEM,0);

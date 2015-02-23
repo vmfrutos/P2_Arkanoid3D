@@ -14,8 +14,8 @@ IntroState::IntroState() {
 	_nodeCamara = NULL;
 	_nodeFoco = NULL;
 	_exitState = false;
-	_numArboles = 550; //35;
-	_numArbolesSecos = 550; // 35;
+	_numArboles = 200; //35;
+	_numArbolesSecos = 200; // 35;
 	_sheet = NULL;
 	_menu = NULL;
 	srand (time(NULL));
@@ -123,7 +123,8 @@ IntroState::frameStarted
 	Ogre::Quaternion incremento(Ogre::Degree(grados * deltaT * velocidad), Ogre::Vector3::UNIT_Y);
 
 	_nodeCamara->rotate(incremento,Ogre::Node::TS_WORLD);
-	_nodeFoco->rotate(incremento,Ogre::Node::TS_WORLD);
+	// Comento el giro del foco porque consume demasiados recursos
+	//_nodeFoco->rotate(incremento,Ogre::Node::TS_WORLD);
 
 
 	return true;
@@ -205,8 +206,8 @@ IntroState::createScene() {
 	_sceneMgr->setAmbientLight(Ogre::ColourValue(0.9, 0.9, 0.9));
 
 	_sceneMgr->setShadowTextureCount(2);
-	_sceneMgr->setShadowTextureSize(16384);
-	//sceneMgr->setShadowTextureSize(512);
+
+	_sceneMgr->setShadowTextureSize(2048);
 
 
 

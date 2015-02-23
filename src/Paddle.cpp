@@ -195,7 +195,6 @@ Paddle::refresh(float timeSinceLastFrame){
 
 void
 Paddle::reset() {
-	cout << "*************************Se llama a reset" << endl;
 	contractPadle();
 	_timerAvtive = false;
 	_timer.reset();
