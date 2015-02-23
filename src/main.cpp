@@ -32,20 +32,20 @@ int main (int argc, char**argv) {
   try
     {
       // Inicializa el juego y transición al primer estado.
-      game->start(IntroState::getSingletonPtr());
-	  //game->start(PlayState::getSingletonPtr());
+      game->start(IntroState::getSingletonPtr());;
     }
   catch (Ogre::Exception& e)
     {
       std::cerr << "Excepción detectada: " << e.getFullDescription();
     }
 
-  if (game) delete game;
+
   if (recordsManager) delete recordsManager;
   if (recordState) delete recordState;
   if (creditsState) delete creditsState;
   if (playState)  delete playState;
   if (introState) delete introState;
+
 
 
   return 0;
